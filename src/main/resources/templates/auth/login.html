@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login page</title>
+</head>
+<body>
+
+<div th:insert="~{fragments/menu :: #nav-menu}"></div>
+
+<h1>Пройдите авторизацию!</h1>
+
+<!--Данные с формы Login через метод POST - уйдут на отдельный адресс PROCESS_Login-->
+<!--Имена полей Input - должны быть именно UserName и Password - иначе SpSeq - не поймет!!!-->
+<form name="f" method="post" action="/process_login">
+    <label for="username">Введите имя пользователя: </label>
+    <input type="text" name="username" id="username"/>
+    <br/>
+    <label for="password">Введите пароль: </label>
+<!--    тип password - маскирует пароль!!!-->
+    <input type="password" name="password" id="password"/>
+    <br/>
+    <input type="submit" value="Login"/>
+<!--    при наличии переданных аргументов как ошибок!!!-->
+    <div th:if="${param.error}" style="color:red">
+        Неправильные имя или пароль
+    </div>
+</form>
+
+
+
+</body>
+</html>

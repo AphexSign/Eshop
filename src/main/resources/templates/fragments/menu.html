@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<table id="nav-menu" width="100%">
+    <tr>
+        <td align="center">
+            <table>
+                <tr>
+                    <td> Menu -> </td>
+                    <td><a th:href="@{/hello}"> На главную </a></td>
+                    <td sec:authorize="isAuthenticated()"><a th:href="@{/products}"> Товары </a></td>
+                    <td sec:authorize="isAuthenticated()"><a th:href="@{/cart}"> Корзина товаров </a></td>
+                    <td sec:authorize="isAuthenticated()"><a th:href="@{/orders}"> Заказы </a></td>
+                    <td sec:authorize="hasRole('ADMIN')"><a th:href="@{/users}"> Пользователи </a></td>
+                </tr>
+            </table>
+
+        <td align="right">
+            <div sec:authorize="isAuthenticated()">
+                <div>
+                    Приветствую, <span sec:authentication="principal.username">Bill</span>
+                </div>
+                <div>
+                    <a th:href="@{/logout}">Logout</a>
+                </div>
+            </div>
+
+            <div sec:authorize="!isAuthenticated()">
+                <div>
+                    Hello, Guest. Please <a th:href="@{/auth/login}">Login</a>
+                    <br/>
+                    or <a th:href="@{/auth/registration}">Register</a>
+                </div>
+            </div>
+        </td>
+        </tr>
+</table>
+
+
+
+
+</body>
+</html>

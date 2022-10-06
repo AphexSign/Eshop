@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Мои заказы</title>
+</head>
+<body>
+<div th:insert="~{fragments/menu :: #nav-menu}"></div>
+<h2 align="center">Ваш заказ</h2>
+
+<table border="1" align="center">
+    <tr>
+        <td>Номер заказа</td>
+        <td>Сумма заказа</td>
+        <td>Метод оплаты</td>
+        <td>Адрес доставки</td>
+        <td>Статус заказа</td>
+        <td>Ф.И.О. заказчика</td>
+        <td></td>
+    </tr>
+    <tr th:each="order : ${orders}">
+        <td align="center" th:text="${order.id}">1</td>
+        <td align="center" th:text="${order.sum}">200</td>
+        <td align="center" th:text="${order.pay}">Money</td>
+
+        <td th:text="${order.address}">Address</td>
+        <td align="center" th:text="${order.status}">New</td>
+        <td align="center" th:text="${order.user.fio}">FIO</td>
+        <td><a th:href="@{/orders/{id}/pay(id=${order.id})}">Оплатить</a></td>
+        <td><a th:href="@{/orders/{id}/cancel(id=${order.id})}">Отменить</a></td>
+    </tr>
+</table>
+
+
+
+</body>
+</html>
