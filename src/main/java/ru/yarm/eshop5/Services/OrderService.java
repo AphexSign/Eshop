@@ -1,9 +1,12 @@
 package ru.yarm.eshop5.Services;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import ru.yarm.eshop5.Models.Order;
 import ru.yarm.eshop5.Models.OrderStatus;
 import ru.yarm.eshop5.Models.User;
+import ru.yarm.eshop5.Repositories.OrderCrudRepository;
 import ru.yarm.eshop5.Repositories.OrderRepository;
 import ru.yarm.eshop5.Repositories.UserRepository;
 
@@ -15,23 +18,21 @@ import java.util.List;
 public class OrderService {
     private final OrderRepository orderRepository;
     private final UserRepository userRepository;
+    private final OrderCrudRepository orderCrudRepository;
 
-    public OrderService(OrderRepository orderRepository, UserRepository userRepository) {
+
+    @Autowired
+    public OrderService(OrderRepository orderRepository, UserRepository userRepository, OrderCrudRepository orderCrudRepository) {
         this.orderRepository = orderRepository;
         this.userRepository = userRepository;
+        this.orderCrudRepository = orderCrudRepository;
     }
-
 
     public List<Order> getOrderByUser(String userName){
         User user=userRepository.findByName(userName).get();
-        //Создаем список для пополнения заказов конкретного пользователя
         List<Order> orderList=new ArrayList<>();
-        orderList.add(orderRepository.getReferenceById(2L));
-        orderList.add(orderRepository.getReferenceById(3L));
-        orderList.add(orderRepository.getReferenceById(4L));
-
-       return orderList;
-
+        orderList=orderCrudRepository.findAllByUser(user);
+        return orderList;
     }
 
     @Transactional
