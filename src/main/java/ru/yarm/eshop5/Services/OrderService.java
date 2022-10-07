@@ -12,6 +12,8 @@ import ru.yarm.eshop5.Repositories.UserRepository;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -28,6 +30,7 @@ public class OrderService {
         this.orderCrudRepository = orderCrudRepository;
     }
 
+    //Выдача несортированного списка Заказов
     public List<Order> getOrderByUser(String userName){
         User user=userRepository.findByName(userName).get();
         List<Order> orderList=new ArrayList<>();
@@ -51,5 +54,17 @@ public class OrderService {
         orderRepository.save(order);
     }
 
-
+    //Выдача сортированного списка
+    public List<Order> getOrderByUserAndSortById(String name) {
+        List<Order> orders=getOrderByUser(name);
+        Comparator<Order> comparator = new Comparator<Order>() {
+            @Override
+            public int compare(Order left, Order right) {
+                return Long.compare(left.getId(),right.getId());
+            }
+        };
+        Collections.sort(orders, comparator);
+        orders.sort(comparator);
+        return orders;
+    }
 }

@@ -144,12 +144,9 @@ public class CartService {
         order.setAddress(user.getAddress());
 
         orderRepository.save(order);
-
         //Уничтожаем корзину
         cart.getProducts().clear();
         cartRepository.save(cart);
-
-
 
     }
 
