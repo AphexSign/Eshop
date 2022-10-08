@@ -26,8 +26,23 @@
         <td th:text="${order.address}">Address</td>
         <td align="center" th:text="${order.status}">New</td>
         <td align="center" th:text="${order.user.fio}">FIO</td>
-        <td><a th:href="@{/orders/{id}/pay(id=${order.id})}">Оплатить</a></td>
-        <td><a th:href="@{/orders/{id}/cancel(id=${order.id})}">Отменить</a></td>
+
+        <td th:if="${order.getStatus.name()!='NEW'}">
+            Not permited
+        </td>
+        <td th:if="${order.getStatus.name()=='NEW'}">
+        <a th:href="@{/orders/{id}/pay(id=${order.id})}">Оплатить</a>
+        </td>
+
+
+        <td th:if="${order.getStatus.name()!='NEW'}">
+            Not permited
+        </td>
+        <td th:if="${order.getStatus.name()=='NEW'}">
+           <a th:href="@{/orders/{id}/cancel(id=${order.id})}">Отменить</a>
+        </td>
+
+
     </tr>
 </table>
 

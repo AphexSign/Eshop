@@ -67,4 +67,24 @@ public class OrderService {
         orders.sort(comparator);
         return orders;
     }
+
+    public List<Order> getAllOrdersSortedById() {
+        List<Order> orders=orderRepository.findAll();
+        Comparator<Order> comparator = new Comparator<Order>() {
+            @Override
+            public int compare(Order left, Order right) {
+                return Long.compare(left.getId(),right.getId());
+            }
+        };
+        Collections.sort(orders, comparator);
+        orders.sort(comparator);
+        return orders;
+    }
+
+
+    public void deliverOrder(Long id) {
+        Order order=orderRepository.getById(id);
+        order.setStatus(OrderStatus.CLOSED);
+        orderRepository.save(order);
+    }
 }

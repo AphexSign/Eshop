@@ -12,13 +12,13 @@
             <table>
                 <tr>
                     <td> Menu -> </td>
-                    <td><a th:href="@{/hello}"> На главную </a></td>
-                    <td sec:authorize="isAuthenticated()"><a th:href="@{/products}"> Товары </a></td>
-                    <td sec:authorize="isAuthenticated()"><a th:href="@{/cart}"> Корзина товаров </a></td>
-                    <td sec:authorize="isAuthenticated()"><a th:href="@{/orders}"> Заказы </a></td>
-                    <td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/users}"> Пользователи </a></td>
-                    <td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/prod_admin}"> Управление товарами </a></td>
-
+                    <td><a th:href="@{/hello}">   На главную   </a></td>
+                    <td sec:authorize="isAuthenticated()"><a th:href="@{/products}">   Товары   </a></td>
+                    <td sec:authorize="isAuthenticated()"><a th:href="@{/cart}">   Корзина товаров   </a></td>
+                    <td sec:authorize="isAuthenticated()"><a th:href="@{/orders}">   Заказы   </a></td>
+                    <td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/users}">   Пользователи   </a></td>
+                    <td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/prod_admin}">   Управление товарами   </a></td>
+                    <td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/order_admin}">   Управление заказами   </a></td>
                 </tr>
             </table>
 

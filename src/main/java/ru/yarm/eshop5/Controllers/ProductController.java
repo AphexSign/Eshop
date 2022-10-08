@@ -15,21 +15,15 @@ import java.util.List;
 public class ProductController {
 
     private final ProductService productService;
-    private final ProductRepository productRepository;
 
-    public ProductController(ProductService productService, ProductRepository productRepository) {
+    public ProductController(ProductService productService) {
         this.productService = productService;
-        this.productRepository = productRepository;
     }
-
 
     //Сделать показ только активных продуктов, формировать только тот список из ID, выдача артикула
     @GetMapping
     public String showProducts(Model model) {
         List<Product> products = productService.getProductActive();
-        //Выдать только активные товары
-      //  List<Product> products=productRepository.findAllByActiveIsContainingOrderByIdAsc(true);
-//        List<Product> products=productRepository.findAllByActiveIsContainingIgnoreCase(true);
         model.addAttribute("products", products);
         return "products";
     }
@@ -44,8 +38,5 @@ public class ProductController {
         productService.addToUserCart(id,principal.getName());
         return "redirect:/products";
     }
-
-
-
 
 }
