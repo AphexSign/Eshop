@@ -22,12 +22,8 @@ public class UserController {
         this.userService = userService;
     }
 
-
-    //Сделать изменение, при переходе на ссылку/Забанить/Разбанить
     @GetMapping("/users")
     public String showUsers(Model model) {
-
-
         List<User> users=userRepository.findAllByOrderByIdAsc();
         model.addAttribute("users", users);
         return "users";

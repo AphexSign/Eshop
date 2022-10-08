@@ -109,7 +109,7 @@ public class CartService {
     }
 
     @Transactional
-    public void commitCartToOrder(String userName){
+    public void commitCartToOrder(String userName, String payment){
 
         //Находим Юзера
         User user=userRepository.findByName(userName).get();
@@ -140,6 +140,7 @@ public class CartService {
         order.setDetails(orderDetails);
         //Заполняем суммы в заказе
         order.setSum(total);
+        order.setPay(payment);
         //Даем адрес никакой
         order.setAddress(user.getAddress());
 

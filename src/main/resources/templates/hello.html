@@ -17,7 +17,6 @@
 <div sec:authorize="isAuthenticated()">
     <h2 align="center">
         Добро пожаловать в наш Интернет-Магазин!
-
         <br/>
         <br/>
         Ваше Ф.И.О.: <span th:text="${user.getFio()}" /> <br/>
@@ -25,10 +24,8 @@
         Ваш email: <span th:text="${user.getEmail()}" /><br/>
         Ваш адрес: <span th:text="${user.getAddress()}" /><br/>
         Ваш телефон: <span th:text="${user.getTelephone()}" /><br/>
-
     </h2>
 </div>
-
 
 </body>
 </html>

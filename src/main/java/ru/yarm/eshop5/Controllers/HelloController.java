@@ -26,19 +26,12 @@ public class HelloController {
     @GetMapping("/hello")
     public String aboutUser(Model model, Principal principal){
             User user=userRepository.findByName(principal.getName()).get();
-
             //Проверка на роль
             if(user.getRole()!=Role.BANNED){
                 model.addAttribute("user", user);
                 return "hello";
-            }    else
-            {
+            } else {
                 model.addAttribute("user", user);
                 return "banned";}
-
-
     }
-
-
-
 }

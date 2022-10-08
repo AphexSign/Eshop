@@ -14,7 +14,6 @@ import ru.yarm.eshop5.Services.SecurityUserDetailsService;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-
     private final SecurityUserDetailsService securityUserDetailsService;
 
     public SecurityConfig(SecurityUserDetailsService securityUserDetailsService) {
@@ -25,7 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/auth/login","/auth/registration","/error").permitAll()
-                .antMatchers("/users").hasAnyAuthority(Role.ADMIN.name(), Role.MANAGER.name(), Role.CLIENT.name())
+                .antMatchers("/users","/prod_admin","/order_admin").hasAnyAuthority(Role.ADMIN.name())
                 .antMatchers("/cart","/products","/orders").hasAnyAuthority(Role.ADMIN.name(), Role.MANAGER.name(), Role.CLIENT.name())
                 .antMatchers("/hello").hasAnyAuthority(Role.ADMIN.name(), Role.MANAGER.name(), Role.CLIENT.name(), Role.BANNED.name())
                 .antMatchers("/banned").hasAnyAuthority(Role.BANNED.name())

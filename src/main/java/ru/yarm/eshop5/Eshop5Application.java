@@ -13,6 +13,9 @@ public class Eshop5Application {
 		SpringApplication.run(Eshop5Application.class, args);
 
 
+		User user=new User();
+		user.setRole(Role.ADMIN);
+		System.err.println(user.getRole());
 
 
 

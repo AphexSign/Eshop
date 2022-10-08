@@ -22,11 +22,18 @@
         <td th:text="${detail.price}">11.0</td>
         <td th:text="${detail.sum}">22</td>
         <td><a th:href="@{/cart/{id}/remove(id=${detail.productId})}">Remove from cart</a></td>
-
     </tr>
 </table>
 <h3 align="center">Сумма заказа составила <b th:text="${cart.sum}">1000</b> руб.</h3>
+
 <form th:align="center" th:action="@{/cart}" method="post">
+
+    <label>Выберите способ оплаты:</label>
+    <input type="radio" th:name="${'payment'}" value="Cash" checked/>Наличная форма оплаты
+    <input type="radio" th:name="${'payment'}" value="Bank" />Безналичная форма оплаты
+
+    <br/>
+
     <button type="submit">Создать заказ</button>
 </form>
 

@@ -8,7 +8,6 @@
 <div th:insert="~{fragments/menu :: #nav-menu}"></div>
 <h2 align="center">Выберите товар из нашего ассортимента:</h2>
 
-
 <table border="1" align="center" id="table">
     <tr>
         <td>Наименование</td>
@@ -27,6 +26,7 @@
         <td><a th:href="@{/products/{id}/cart(id=${product.id})}">Добавить в корзину</a></td>
     </tr>
 </table>
+
 
 
 </body>

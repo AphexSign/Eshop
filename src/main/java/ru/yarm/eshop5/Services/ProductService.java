@@ -3,11 +3,13 @@ package ru.yarm.eshop5.Services;
 import org.springframework.stereotype.Service;
 import ru.yarm.eshop5.Models.Cart;
 import ru.yarm.eshop5.Models.Product;
+import ru.yarm.eshop5.Models.Role;
 import ru.yarm.eshop5.Models.User;
 import ru.yarm.eshop5.Repositories.ProductRepository;
 import ru.yarm.eshop5.Repositories.UserRepository;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -23,12 +25,28 @@ public class ProductService {
         this.cartService = cartService;
     }
 
-    // Все методы, связанные с продуктовой страницей
 
     // Метод получающий все доступные товары, если таковые имеются
+    // Выдает все продукты - пригодится только для АДМИНСКОЙ части
     public List<Product> getAll(){
         return productRepository.findAll();
     }
+
+    public List<Product> getProductActive(){
+
+        //Получаем все продукты в порядке ID;
+        List<Product> activeProduct=new ArrayList<>();
+        List<Product> products=productRepository.findAllByOrderByIdAsc();
+
+        for(Product product: products){
+            if(product.isActive()){
+                activeProduct.add(product);
+            }
+        }
+        return activeProduct;
+    }
+
+
 
     // Метод отдающий в корзину товар по id-товара и user.name, для текущей сессии
     @Transactional
@@ -51,6 +69,40 @@ public class ProductService {
             //If cart is present, add Single Product to Cart
             cartService.addProducts(cart,Collections.singletonList(productId));
         }
-
     }
+
+
+    //Сделать метод по выдачи продуктов только с АКТИВНЫМ статусом
+    //Нужен для клиенстской части
+
+
+    //Метод добавки Продукта в общую базу
+    //Статус Active - true!
+    @Transactional
+    public void addProductToDB(Product product){
+        //Устанавливаем продукту активность
+        product.setActive(true);
+        //Записываем продукт в базу
+        productRepository.save(product);
+    }
+
+    @Transactional
+    public void deactiveProd(Long id) {
+        Product product=productRepository.getReferenceById(id);
+        product.setActive(false);
+        productRepository.save(product);
+    }
+
+    @Transactional
+    public void activeProd(Long id) {
+        Product product=productRepository.getReferenceById(id);
+        product.setActive(true);
+        productRepository.save(product);
+    }
+
+
+
+
+
+
 }

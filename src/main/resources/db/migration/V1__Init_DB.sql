@@ -24,6 +24,7 @@ create table products (
                           price float8,
                           date_manufactured date,
                           date_expire date,
+                          active boolean not null,
                           primary key (id)
 );
 

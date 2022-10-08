@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Каталог доступных товаров</title>
+</head>
+<body>
+<div th:insert="~{fragments/menu :: #nav-menu}"></div>
+<h2 align="center">Управление продуктовой номенклатурой:</h2>
+
+<table border="1" align="center" id="table">
+  <tr>
+    <td>Наименование</td>
+    <td>Цена, руб.</td>
+    <td>Вес, кг.</td>
+    <td align="center">Дата изготовления</td>
+    <td align="center">Срок годности</td>
+    <td align="center">Доступность</td>
+    <td></td>
+  </tr>
+  <tr th:each="product : ${products}">
+    <td th:text="${product.title}">Cheese</td>
+    <td align="center" th:text="${product.price}">12.0</td>
+    <td align="center" th:text="${product.weight}">12.0</td>
+    <td align="center" th:text="${product.date_manufactured}">12.0</td>
+    <td align="center" th:text="${product.date_expire}">12.0</td>
+    <td align="center" th:text="${product.active}">12.0</td>
+    <td><a th:href="@{/prod_admin/{id}/deactive(id=${product.id})}">Деактивировать</a></td>
+    <td><a th:href="@{/prod_admin/{id}/active(id=${product.id})}">Активировать</a></td>
+  </tr>
+</table>
+
+
+<form th:method="POST" th:action="@{/prod_admin}" th:object="${product}">
+  <label for="title">Введите название продукта: </label>
+  <input type="text" th:field="${product.title}" id="title"/>
+  <div style="color:red" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Title Error</div>
+  <br/>
+
+  <label for="price">Введите цену: </label>
+  <input type="text" th:field="${product.price}" id="price"/>
+  <div style="color:red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Price Error
+  </div>
+  <br/>
+
+  <label for="weight">Введите вес: </label>
+  <input type="text" th:field="${product.weight}" id="weight"/>
+  <div style="color:red" th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}">Email Error
+  </div>
+  <br/>
+
+  <label for="date_manufactured">Введите дату изготовления: </label>
+  <input type="text" th:field="${product.date_manufactured}" id="date_manufactured"/>
+  <div style="color:red" th:if="${#fields.hasErrors('date_manufactured')}" th:errors="*{date_manufactured}">Address Error
+  </div>
+  <br/>
+
+  <label for="date_expire">Введите дату окончания срока годности: </label>
+  <input type="text" th:field="${product.date_expire}" id="date_expire"/>
+  <div style="color:red" th:if="${#fields.hasErrors('date_expire')}" th:errors="*{date_expire}">Telephone Error
+  </div>
+
+  <br/>
+
+  <input type="submit" value="Add product"/>
+</form>
+
+
+
+
+
+
+
+</body>
+</html>
