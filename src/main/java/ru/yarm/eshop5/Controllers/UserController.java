@@ -1,6 +1,7 @@
 package ru.yarm.eshop5.Controllers;
 
 import org.springframework.data.domain.Sort;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,9 @@ public class UserController {
     }
 
     @GetMapping("/users")
+    //Реализовать
+    //@PreAuthorize("hasAuthority('ADMIN')")
+
     public String showUsers(Model model) {
         List<User> users=userRepository.findAllByOrderByIdAsc();
         model.addAttribute("users", users);
@@ -40,6 +44,11 @@ public class UserController {
         return "redirect:/users";
     }
 
+    @GetMapping("/users/{id}/mk_manager")
+    public String mk_manager(@PathVariable Long id) {
+        userService.mk_manager(id);
+        return "redirect:/users";
+    }
 
 
 }

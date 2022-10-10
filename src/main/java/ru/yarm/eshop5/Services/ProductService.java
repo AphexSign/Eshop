@@ -46,8 +46,6 @@ public class ProductService {
         return activeProduct;
     }
 
-
-
     // Метод отдающий в корзину товар по id-товара и user.name, для текущей сессии
     @Transactional
     public void addToUserCart(Long productId, String name) {
@@ -73,8 +71,7 @@ public class ProductService {
 
 
     //Сделать метод по выдачи продуктов только с АКТИВНЫМ статусом
-    //Нужен для клиенстской части
-
+    //Нужен для клиентской части
 
     //Метод добавки Продукта в общую базу
     //Статус Active - true!

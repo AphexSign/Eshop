@@ -19,8 +19,6 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-
-
     @Transactional
     public void banUser(Long id) {
         User user=userRepository.getReferenceById(id);
@@ -35,6 +33,13 @@ public class UserService {
         User user=userRepository.getReferenceById(id);
         user.setArchive(false);
         user.setRole(Role.CLIENT);
+        userRepository.save(user);
+    }
+
+    public void mk_manager(Long id) {
+        User user=userRepository.getReferenceById(id);
+        user.setArchive(false);
+        user.setRole(Role.MANAGER);
         userRepository.save(user);
     }
 }

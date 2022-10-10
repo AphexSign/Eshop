@@ -28,7 +28,6 @@ public class ProductAdminController {
     public String registProduct(@ModelAttribute("product") Product product, Model model) {
         //Выдать по сортировке
         List<Product> products = productRepository.findAllByOrderByIdAsc();
-        System.out.println(products.size());
         model.addAttribute("products", products);
         return "prod_admin";
     }

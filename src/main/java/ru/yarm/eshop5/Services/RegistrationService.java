@@ -23,7 +23,6 @@ public class RegistrationService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole(Role.CLIENT);
         userRepository.save(user);
-
     }
 
 }
