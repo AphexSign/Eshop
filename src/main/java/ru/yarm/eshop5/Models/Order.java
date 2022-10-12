@@ -11,6 +11,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Data
@@ -42,4 +43,21 @@ public class Order {
     private List<OrderDetails> details;
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
+
+
+    public String getCreatedTime(){
+        LocalDateTime localDateTime=this.created;
+        DateTimeFormatter formatter=DateTimeFormatter.ofPattern("YYYY.MM.dd kk:mm:ss");
+        return localDateTime.format(formatter);
+    }
+
+    public String getChangedTime(){
+        LocalDateTime localDateTime=this.changed;
+        DateTimeFormatter formatter=DateTimeFormatter.ofPattern("YYYY.MM.dd kk:mm:ss");
+        return localDateTime.format(formatter);
+    }
+
+
+
+
 }

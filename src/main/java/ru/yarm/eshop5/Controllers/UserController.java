@@ -24,11 +24,9 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    //Реализовать
-    //@PreAuthorize("hasAuthority('ADMIN')")
-
     public String showUsers(Model model) {
-        List<User> users=userRepository.findAllByOrderByIdAsc();
+       // List<User> users=userRepository.findAllByOrderByIdAsc();
+        List<User> users=userService.getAllByOrderByIdAsc();
         model.addAttribute("users", users);
         return "users";
     }

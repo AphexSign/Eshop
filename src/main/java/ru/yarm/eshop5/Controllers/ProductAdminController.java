@@ -16,18 +16,16 @@ import java.util.List;
 public class ProductAdminController {
 
     private final ProductService productService;
-    private final ProductRepository productRepository;
 
-    public ProductAdminController(ProductService productService, ProductRepository productRepository) {
+
+    public ProductAdminController(ProductService productService) {
         this.productService = productService;
-        this.productRepository = productRepository;
     }
-
 
     @GetMapping
     public String registProduct(@ModelAttribute("product") Product product, Model model) {
-        //Выдать по сортировке
-        List<Product> products = productRepository.findAllByOrderByIdAsc();
+
+        List<Product> products=productService.getAllByOrderByIdAsc();
         model.addAttribute("products", products);
         return "prod_admin";
     }

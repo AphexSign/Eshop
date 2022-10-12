@@ -14,7 +14,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/order_admin")
 public class OrderAdminController {
-    //Есть только право доставить заказ
+
     private final OrderService orderService;
 
     public OrderAdminController(OrderService orderService) {

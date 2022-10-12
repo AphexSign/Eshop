@@ -11,6 +11,7 @@ import ru.yarm.eshop5.Repositories.OrderRepository;
 import ru.yarm.eshop5.Repositories.UserRepository;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -43,6 +44,7 @@ public class OrderService {
         User user=userRepository.findByName(name).get();
         Order order=orderRepository.getReferenceById(id);
         order.setStatus(OrderStatus.PAID);
+        order.setChanged(LocalDateTime.now());
         orderRepository.save(order);
     }
 
@@ -51,6 +53,7 @@ public class OrderService {
         User user=userRepository.findByName(name).get();
         Order order=orderRepository.getReferenceById(id);
         order.setStatus(OrderStatus.CANCELLED);
+        order.setChanged(LocalDateTime.now());
         orderRepository.save(order);
     }
 
@@ -85,6 +88,7 @@ public class OrderService {
     public void deliverOrder(Long id) {
         Order order=orderRepository.getById(id);
         order.setStatus(OrderStatus.CLOSED);
+        order.setChanged(LocalDateTime.now());
         orderRepository.save(order);
     }
 }

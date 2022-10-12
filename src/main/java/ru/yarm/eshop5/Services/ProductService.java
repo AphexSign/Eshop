@@ -28,44 +28,51 @@ public class ProductService {
 
     // Метод получающий все доступные товары, если таковые имеются
     // Выдает все продукты - пригодится только для АДМИНСКОЙ части
-    public List<Product> getAll(){
+    public List<Product> getAll() {
         return productRepository.findAll();
     }
 
-    public List<Product> getProductActive(){
+    public List<Product> getProductActive() {
 
         //Получаем все продукты в порядке ID;
-        List<Product> activeProduct=new ArrayList<>();
-        List<Product> products=productRepository.findAllByOrderByIdAsc();
+        List<Product> activeProduct = new ArrayList<>();
+        List<Product> products = productRepository.findAllByOrderByIdAsc();
 
-        for(Product product: products){
-            if(product.isActive()){
+        for (Product product : products) {
+            if (product.isActive()) {
                 activeProduct.add(product);
             }
         }
         return activeProduct;
     }
 
+    public List<Product> getAllByOrderByIdAsc() {
+
+        return productRepository.findAllByOrderByIdAsc();
+
+    }
+
+
     // Метод отдающий в корзину товар по id-товара и user.name, для текущей сессии
     @Transactional
     public void addToUserCart(Long productId, String name) {
         //Find the current User
-        User user=userRepository.findByName(name).get();
-        System.err.println("Found user (inner method):"+user.getName());
-        if(user == null){
+        User user = userRepository.findByName(name).get();
+        System.err.println("Found user (inner method):" + user.getName());
+        if (user == null) {
             throw new RuntimeException("User not found. " + name);
         }
         //Find the Cart of User
-        Cart cart=user.getCart();
+        Cart cart = user.getCart();
         //if Cart isn't present, create new Cart by sending User and only one single product
-        if(cart==null){
-            Cart newCart=cartService.createCart(user, Collections.singletonList(productId));
+        if (cart == null) {
+            Cart newCart = cartService.createCart(user, Collections.singletonList(productId));
             user.setCart(newCart);
             //Save changes to DB
             userRepository.save(user);
-        } else{
+        } else {
             //If cart is present, add Single Product to Cart
-            cartService.addProducts(cart,Collections.singletonList(productId));
+            cartService.addProducts(cart, Collections.singletonList(productId));
         }
     }
 
@@ -76,7 +83,7 @@ public class ProductService {
     //Метод добавки Продукта в общую базу
     //Статус Active - true!
     @Transactional
-    public void addProductToDB(Product product){
+    public void addProductToDB(Product product) {
         //Устанавливаем продукту активность
         product.setActive(true);
         //Записываем продукт в базу
@@ -85,21 +92,17 @@ public class ProductService {
 
     @Transactional
     public void deactiveProd(Long id) {
-        Product product=productRepository.getReferenceById(id);
+        Product product = productRepository.getReferenceById(id);
         product.setActive(false);
         productRepository.save(product);
     }
 
     @Transactional
     public void activeProd(Long id) {
-        Product product=productRepository.getReferenceById(id);
+        Product product = productRepository.getReferenceById(id);
         product.setActive(true);
         productRepository.save(product);
     }
-
-
-
-
 
 
 }

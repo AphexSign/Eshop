@@ -8,20 +8,20 @@
 <div th:insert="~{fragments/menu :: #nav-menu}"></div>
 <h2 align="center">Ваша товарная корзина:</h2>
 
-<table border="1" align="center">
-    <tr>
-        <td>Название</td>
-        <td>Количество</td>
-        <td>Цена</td>
-        <td>Сумма</td>
-        <td></td>
+<table border="0" align="center">
+    <tr BGCOLOR="#DEB887">
+        <td align="center" style="font-weight:bold; font-size:20px">Название</td>
+        <td align="center" style="font-weight:bold; font-size:20px">Количество</td>
+        <td align="center" style="font-weight:bold; font-size:20px">Цена</td>
+        <td align="center" style="font-weight:bold; font-size:20px">Сумма</td>
+<!--        <td></td>-->
     </tr>
     <tr th:each="detail : ${cart.cartDetails}">
         <td th:text="${detail.title}">Cheese</td>
         <td th:text="${detail.amount}">2</td>
         <td th:text="${detail.price}">11.0</td>
         <td th:text="${detail.sum}">22</td>
-        <td><a th:href="@{/cart/{id}/remove(id=${detail.productId})}">Remove from cart</a></td>
+        <td><a title="Убрать товар из корзины" th:href="@{/cart/{id}/remove(id=${detail.productId})}"><img th:src="@{/images/deletecart.png}" height="32px" width="32px"/></a></td>
     </tr>
 </table>
 <h3 align="center">Сумма заказа составила <b th:text="${cart.sum}">1000</b> руб.</h3>

@@ -33,8 +33,6 @@ public class ProductController {
         if (principal == null) {
             return "redirect:/products";
         }
-        System.err.println("Press button add to bucket Product:"+id+" user:"+principal.getName());
-        //Вносит ID-товара к текущему User и не позволяет перейти в саму корзину, возвращает нас назад
         productService.addToUserCart(id,principal.getName());
         return "redirect:/products";
     }

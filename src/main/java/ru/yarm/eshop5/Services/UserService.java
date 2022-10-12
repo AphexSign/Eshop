@@ -36,10 +36,15 @@ public class UserService {
         userRepository.save(user);
     }
 
+    @Transactional
     public void mk_manager(Long id) {
         User user=userRepository.getReferenceById(id);
         user.setArchive(false);
         user.setRole(Role.MANAGER);
         userRepository.save(user);
+    }
+
+    public List<User> getAllByOrderByIdAsc() {
+     return  userRepository.findAllByOrderByIdAsc();
     }
 }

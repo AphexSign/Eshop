@@ -8,14 +8,14 @@
 <div th:insert="~{fragments/menu :: #nav-menu}"></div>
 <h2 align="center">Выберите товар из нашего ассортимента:</h2>
 
-<table border="1" align="center" id="table">
-    <tr>
-        <td>Наименование</td>
-        <td>Цена, руб.</td>
-        <td>Вес, кг.</td>
-        <td align="center">Дата изготовления</td>
-        <td align="center">Срок годности</td>
-        <td></td>
+<table border="0" align="center" id="table">
+    <tr BGCOLOR="#DEB887">
+        <td align="center" style="font-weight:bold; font-size:20px">Наименование</td>
+        <td align="center" style="font-weight:bold; font-size:20px">Цена, руб.</td>
+        <td align="center" style="font-weight:bold; font-size:20px">Вес, кг.</td>
+        <td align="center" style="font-weight:bold; font-size:20px">Дата изготовления</td>
+        <td align="center" style="font-weight:bold; font-size:20px">Срок годности</td>
+<!--        <td></td>-->
     </tr>
     <tr th:each="product : ${products}">
         <td th:text="${product.title}">Cheese</td>
@@ -23,7 +23,7 @@
         <td align="center" th:text="${product.weight}">12.0</td>
         <td align="center" th:text="${product.date_manufactured}">12.0</td>
         <td align="center" th:text="${product.date_expire}">12.0</td>
-        <td><a th:href="@{/products/{id}/cart(id=${product.id})}">Добавить в корзину</a></td>
+        <td><a th:title="${'Добавить '+product.title+' в корзину'}" th:href="@{/products/{id}/cart(id=${product.id})}"><img th:src="@{/images/addcart.png}" height="32px" width="32px"/></a></td>
     </tr>
 </table>
 
