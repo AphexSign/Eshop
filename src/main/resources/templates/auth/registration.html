@@ -2,10 +2,47 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Registration</title>
+    <title>Страница регистрации</title>
+
+    <style type="text/css">
+        label{
+            width:100px;
+            display:inline-block;
+            margin:4px;
+        }
+        #form{
+            margin-left:auto;
+            margin-right:auto;
+            width:15%;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            background:dodgerblue;
+            color:white;
+            /*width: 350px;*/
+            padding:4px}
+        input{width: auto}
+        h2{
+            text-align:center}
+        #submit{
+            width: 150px;
+            padding: 6px;
+            margin-left: 100px;
+            margin-top: 10px;
+        }
+    </style>
+
+
+
 </head>
 <body>
+
+<div th:insert="~{fragments/menu :: #nav-menu}"></div>
+
 <!--Формой через метод ПОСТ - передаем в аут-рек - пустой обьект User-->
+
+
+<div id="form">
 <form th:method="POST" th:action="@{/auth/registration}" th:object="${user}">
     <label for="name">Введите имя пользователя: </label>
 <!--    Каждое поле персоны отдаем-->
@@ -20,7 +57,6 @@
     <div style="color:red" th:if="${#fields.hasErrors('fio')}" th:errors="*{fio}">ФИО Error
     </div>
     <br/>
-
 
         <label for="email">Введите email: </label>
         <input type="text" th:field="${user.email}" id="email"/>
@@ -46,8 +82,9 @@
     <br/>
 
 
-    <input type="submit" value="Sign up!"/>
+    <input type="submit" value="Зарегистрироваться" id="submit"/>
 </form>
+    </div>
 
 </body>
 </html>

@@ -105,4 +105,13 @@ public class ProductService {
     }
 
 
+    public Product getProductByID(Long id) {
+        return productRepository.findById(id).get();
+    }
+
+    public void updateProductToDB(Product product) {
+        //Получаем ID - записываем туда данные продукта и записываем его по ID
+        product.setActive(true);
+        productRepository.save(product);
+    }
 }

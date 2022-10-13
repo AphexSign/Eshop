@@ -3,13 +3,54 @@
 <head>
   <meta charset="UTF-8">
   <title>Каталог доступных товаров</title>
+
+
+  <style type="text/css">
+    label{
+      width:100px;
+      display:inline-block;
+      margin:4px;
+    }
+    #form{
+
+        margin-left:auto;
+        margin-right:auto;
+        width:15%;
+
+
+      border-radius: 10px;
+      background:dodgerblue;
+      color:white;
+      /*width: 350px;*/
+      padding:4px}
+    input{        width: auto;
+
+    }
+    h2{
+      text-align:center}
+    #submit{
+        width: 130px;
+        padding: 3px;
+        margin-left: 100px;
+        margin-bottom: 12px;
+
+    }
+
+  </style>
+
+
+
+
+
+
+
 </head>
 <body>
 <div th:insert="~{fragments/menu :: #nav-menu}"></div>
 <h2 align="center">Управление продуктовой номенклатурой:</h2>
 
 <table border="0" align="center" id="table">
-  <tr BGCOLOR="#DEB887">
+  <tr BGCOLOR="dodgerblue">
     <td align="center" style="font-weight:bold; font-size:20px">Наименование</td>
     <td align="center" style="font-weight:bold; font-size:20px">Цена, руб.</td>
     <td align="center" style="font-weight:bold; font-size:20px">Вес, кг.</td>
@@ -19,52 +60,58 @@
 <!--    <td></td>-->
   </tr>
   <tr th:each="product : ${products}">
-    <td th:text="${product.title}">Cheese</td>
+
+    <td th:text="${product.title}"> Cheese</td>
     <td align="center" th:text="${product.price}">12.0</td>
     <td align="center" th:text="${product.weight}">12.0</td>
     <td align="center" th:text="${product.date_manufactured}">12.0</td>
     <td align="center" th:text="${product.date_expire}">12.0</td>
-    <td align="center" th:text="${product.active}">12.0</td>
+    <td align="center" th:text="${product.getActiveStatus()}">12.0</td>
     <td><a title="Заблокировать товар" th:href="@{/prod_admin/{id}/deactive(id=${product.id})}"><img th:src="@{/images/ban5.png}" height="32px" width="32px"/></a></td>
     <td><a title="Разблокировать товар" th:href="@{/prod_admin/{id}/active(id=${product.id})}"><img th:src="@{/images/unban.png}" height="32px" width="32px"/></a></td>
+    <td><a title="Редактировать товар" th:href="@{/prod_admin/{id}/edit(id=${product.id})}"><img th:src="@{/images/manager.png}" height="32px" width="32px"/></a></td>
   </tr>
 </table>
 
 
+<div id="form">
+
 <form th:method="POST" th:action="@{/prod_admin}" th:object="${product}">
+
+  <p>
   <label for="title">Введите название продукта: </label>
   <input type="text" th:field="${product.title}" id="title"/>
-  <div style="color:red" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Title Error</div>
-  <br/>
+  <div style="color:black; font-weight:bold" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Title Error</div>
+ </p>
 
+  <p>
   <label for="price">Введите цену: </label>
   <input type="text" th:field="${product.price}" id="price"/>
-  <div style="color:red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Price Error
-  </div>
-  <br/>
+  <div style="color:black; font-weight:bold" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Price Error </div>
+  </p>
 
+  <p>
   <label for="weight">Введите вес: </label>
   <input type="text" th:field="${product.weight}" id="weight"/>
-  <div style="color:red" th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}">Email Error
-  </div>
-  <br/>
+  <div style="color:black; font-weight:bold" th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}">Email Error </div>
+  </p>
 
+  <p>
   <label for="date_manufactured">Введите дату изготовления: </label>
   <input type="text" th:field="${product.date_manufactured}" id="date_manufactured"/>
-  <div style="color:red" th:if="${#fields.hasErrors('date_manufactured')}" th:errors="*{date_manufactured}">Address Error
-  </div>
-  <br/>
+  <div style="color:black; font-weight:bold" th:if="${#fields.hasErrors('date_manufactured')}" th:errors="*{date_manufactured}">date1 Error</div>
+  </p>
 
+  <p>
   <label for="date_expire">Введите дату окончания срока годности: </label>
   <input type="text" th:field="${product.date_expire}" id="date_expire"/>
-  <div style="color:red" th:if="${#fields.hasErrors('date_expire')}" th:errors="*{date_expire}">Telephone Error
-  </div>
+  <div style="color:black; font-weight:bold" th:if="${#fields.hasErrors('date_expire')}" th:errors="*{date_expire}">date2 Error</div>
+  </p>
 
-  <br/>
-
-  <input type="submit" value="Add product"/>
+  <input type="submit" value="Добавить продукт" id="submit"/>
 </form>
 
+  </div>
 
 
 

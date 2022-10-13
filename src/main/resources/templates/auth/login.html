@@ -2,31 +2,62 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Login page</title>
+    <title>Страница аутентификации</title>
+
+    <style type="text/css">
+        label{
+            width:100px;
+            display:inline-block;
+            margin:4px;
+        }
+        #form{
+            margin-left:auto;
+            margin-right:auto;
+            width:15%;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            background:dodgerblue;
+            color:white;
+            /*width: 350px;*/
+            padding:4px}
+        input{width: auto}
+        h2{
+            text-align:center}
+        #submit{
+            width: 60px;
+            padding: 6px;
+            margin-left: 150px;
+            margin-top: 10px;
+        }
+    </style>
+
 </head>
 <body>
 
 <div th:insert="~{fragments/menu :: #nav-menu}"></div>
 
-<h1>Пройдите авторизацию!</h1>
+<h2>Пройдите авторизацию!</h2>
 
 <!--Данные с формы Login через метод POST - уйдут на отдельный адресс PROCESS_Login-->
 <!--Имена полей Input - должны быть именно UserName и Password - иначе SpSeq - не поймет!!!-->
+
+<div id="form">
 <form name="f" method="post" action="/process_login">
     <label for="username">Введите имя пользователя: </label>
     <input type="text" name="username" id="username"/>
     <br/>
     <label for="password">Введите пароль: </label>
-<!--    тип password - маскирует пароль!!!-->
+
     <input type="password" name="password" id="password"/>
     <br/>
-    <input type="submit" value="Login"/>
-<!--    при наличии переданных аргументов как ошибок!!!-->
+    <input type="submit" value="Login" id="submit"/>
+
     <div th:if="${param.error}" style="color:red">
         Неправильные имя или пароль
     </div>
 </form>
-
+</div>
 
 
 </body>

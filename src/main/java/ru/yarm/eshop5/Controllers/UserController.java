@@ -15,17 +15,14 @@ import java.util.List;
 @Controller
 public class UserController {
 
-    private final UserRepository userRepository;
     private final UserService userService;
 
-    public UserController(UserRepository userRepository, UserService userService) {
-        this.userRepository = userRepository;
+    public UserController(UserService userService) {
         this.userService = userService;
     }
 
     @GetMapping("/users")
     public String showUsers(Model model) {
-       // List<User> users=userRepository.findAllByOrderByIdAsc();
         List<User> users=userService.getAllByOrderByIdAsc();
         model.addAttribute("users", users);
         return "users";

@@ -6,5 +6,18 @@ package ru.yarm.eshop5.Models;
 //Closed - Когда Paid перешел в разряд Доставлен. Установлен менеджером.
 
 
-public enum OrderStatus {NEW, RESERVED, PAID, CANCELLED,CLOSED
+public enum OrderStatus {NEW("Новый"), RESERVED("Зарезервирован"), PAID("Оплачено"), CANCELLED("Отменен"),CLOSED("Завершен");
+
+    private String title;
+    private OrderStatus(String title){
+        this.title=title;
+    }
+
+    public String getTitle(){
+        return this.title;
+    }
+
+
+
 }
+

@@ -45,8 +45,8 @@ alter table if exists carts
 
 -- PRODUCTS IN CART
 create table cart_products (
-                                 cart_id int8 not null,
-                                 product_id int8 not null
+                               cart_id int8 not null,
+                               product_id int8 not null
 );
 
 alter table if exists cart_products

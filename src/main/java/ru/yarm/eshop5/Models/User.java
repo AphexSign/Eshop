@@ -62,5 +62,11 @@ public class User {
     private Cart cart;
 
 
+    public String getArchive(){
+        if(this.archive){
+            return "Да";
+        }
+        else {return "Нет";}
+    }
 
 }

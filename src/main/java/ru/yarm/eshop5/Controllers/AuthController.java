@@ -18,7 +18,7 @@ import javax.validation.Valid;
 public class AuthController {
 
     private final RegistrationService registrationService;          //Спрятаны методы регистрации: Шифрование + сохранение в БД
-    private final UserValidator userValidator;                  //Добавляем проверочные методы
+    private final UserValidator userValidator;                      //Добавляем проверочные методы
 
     @Autowired
     public AuthController(RegistrationService registrationService, UserValidator userValidator) {

@@ -57,6 +57,12 @@ public class Order {
         return localDateTime.format(formatter);
     }
 
+    public String getPayMethod(){
+        if (this.pay.equals("Bank")){
+            return "Безналичная";
+        }
+        else {return "Наличная";}
+    }
 
 
 

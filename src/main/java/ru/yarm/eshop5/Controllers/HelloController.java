@@ -12,7 +12,7 @@ import java.security.Principal;
 @Controller
 public class HelloController {
 
-  private UserRepository userRepository;
+  private final UserRepository userRepository;
 
     public HelloController(UserRepository userRepository) {
         this.userRepository = userRepository;

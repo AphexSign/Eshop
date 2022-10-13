@@ -11,6 +11,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @Data
@@ -51,4 +53,28 @@ public class Product {
 
     @Column(name = "active")
     private boolean active;
+
+    public String getActiveStatus(){
+        if (this.active){
+            return "Да";
+        }
+        else {return "Нет";}
+    }
+
+    public String getManufacture(){
+        LocalDate localDate=this.date_manufactured;
+        DateTimeFormatter formatter=DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        return localDate.format(formatter);
+    }
+
+    public String getExpire(){
+        LocalDate localDate=this.date_expire;
+        DateTimeFormatter formatter=DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        return localDate.format(formatter);
+    }
+
+
+
+
+
 }

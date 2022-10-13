@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Продуктовые характеристики</title>
+
+
+  <style type="text/css">
+    label{
+      width:100px;
+      display:inline-block;
+      margin:4px;
+    }
+    #form{
+      margin-left:auto;
+      margin-right:auto;
+      width:15%;
+
+
+      border-radius: 10px;
+      background:dodgerblue;
+      color:white;
+      /*width: 350px;*/
+      padding:4px}
+    input{width: auto}
+    h2{
+      text-align:center}
+    #submit{
+      width: 130px;
+      padding: 3px;
+      margin-left: 100px;
+      margin-bottom: 12px;
+
+    }
+
+  </style>
+
+
+</head>
+<body>
+<div th:insert="~{fragments/menu :: #nav-menu}"></div>
+
+<div id="form">
+  <h2>Изменение данных о товаре</h2>
+<form th:method="POST" th:action="@{/product_info}" th:object="${product}">
+
+  <p>
+  <label for="id">Id товара: </label>
+  <input type="text" th:value="${product.getId()}" name="id" id="id" readonly/>
+  </p>
+
+
+  <p>
+  <label for="title">Введите новое название продукта: </label>
+  <input type="text" th:value="${product.getTitle()}" name="title" id="title"/>
+  <div style="color:black; font-weight:bold" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Title Error</div>
+  </p>
+
+  <p>
+  <label for="price">Введите новую цену: </label>
+  <input type="text" th:value="${product.getPrice()}" name="price" id="price"/>
+  <div style="color:black; font-weight:bold" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Price Error</div>
+  </p>
+
+  <p>
+  <label for="weight">Введите новый вес: </label>
+  <input type="text" th:value="${product.getWeight()}" name="weight" id="weight"/>
+    <div style="color:black; font-weight:bold" th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}">Email Error</div>
+  </p>
+
+  <p>
+  <label for="date_manufactured">Введите новую дату изготовления: </label>
+  <input type="text" th:value="${product.getManufacture()}" name="date_manufactured" id="date_manufactured"/>
+      <div style="color:black; font-weight:bold" th:if="${#fields.hasErrors('date_manufactured')}" th:errors="*{date_manufactured}">date1 Error</div>
+  </p>
+
+
+  <p>
+  <label for="date_expire">Введите новую дату окон.срока годности: </label>
+  <input type="text" th:value="${product.getExpire()}" name="date_expire" id="date_expire"/>
+        <div style="color:black; font-weight:bold" th:if="${#fields.hasErrors('date_expire')}" th:errors="*{date_expire}">date2 Error</div>
+  </p>
+
+
+  <input type="submit" value="Изменить данные" id="submit"/>
+
+<!--  </div>-->
+</form>
+
+
+</div>
+
+
+
+</body>
+</html>

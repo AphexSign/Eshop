@@ -52,5 +52,23 @@ public class ProductAdminController {
         return "redirect:/prod_admin";
     }
 
+    //Попасть на страницу редактирования
+    @GetMapping("/{id}/edit")
+    public String editProd(@PathVariable Long id, @ModelAttribute("product") Product product, Model model) {
+        Product product1=productService.getProductByID(id);
+        model.addAttribute("product", product1);
+        return "product_info";
+    }
+
+
+
+    //Сделать редактирование продуктов, наводишь на товар и можно поменять его ценник, название и характеристики
+    //Просмотреть весь заказ.
+    //Сделать новостную ленту внутри магазина
+    //Вывод текущего времени на сайте
+    //Прикрутить прогноз погоды
+
+
+
 
 }
