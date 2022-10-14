@@ -25,8 +25,19 @@ public class UserValidator implements Validator {
     @Override
     public void validate(Object o, Errors errors) {
         User user=(User) o;
+
+        try{
+            securityUserDetailsService.loadUserByEmail(user.getEmail());
+        }
+        catch (UsernameNotFoundException ignored){
+            return;
+        }
+        errors.rejectValue("email","","Пользователь с таким email уже есть");
+
+
         try {
             securityUserDetailsService.loadUserByUsername(user.getName());
+
         }
         catch (UsernameNotFoundException ignored){
             return; // ok

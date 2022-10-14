@@ -11,9 +11,9 @@
         <td align="center">
             <table>
                 <tr>
-                    <td> Menu -> </td>
+                    <td> Меню -> </td>
                     <td><a th:href="@{/hello}">   На главную   </a></td>
-                    <td sec:authorize="isAuthenticated()"><a th:href="@{/products}">   Товары   </a></td>
+                    <td><a th:href="@{/products}">   Товары   </a></td>
                     <td sec:authorize="isAuthenticated()"><a th:href="@{/cart}">   Корзина товаров   </a></td>
                     <td sec:authorize="isAuthenticated()"><a th:href="@{/orders}">   Заказы   </a></td>
                     <td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/users}">   Пользователи   </a></td>
@@ -34,9 +34,9 @@
 
             <div sec:authorize="!isAuthenticated()">
                 <div>
-                    Hello, Guest. Please <a th:href="@{/auth/login}">Login</a>
+                    Приветствуем вас, Гость. Пожалуйста, пройдите <a th:href="@{/auth/login}">Аутентификацию</a>
                     <br/>
-                    or <a th:href="@{/auth/registration}">Register</a>
+                    или <a th:href="@{/auth/registration}">Зарегистрируетесь</a>
                 </div>
             </div>
         </td>

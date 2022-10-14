@@ -48,37 +48,37 @@
 <!--    Каждое поле персоны отдаем-->
     <input type="text" th:field="${user.name}" id="name"/>
 <!--    Формируем все ошибки-->
-    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Username Error</div>
+    <div style="color:yellow; font-weight:bold" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Username Error</div>
     <br/>
 
 
     <label for="fio">Введите ФИО: </label>
     <input type="text" th:field="${user.fio}" id="fio"/>
-    <div style="color:red" th:if="${#fields.hasErrors('fio')}" th:errors="*{fio}">ФИО Error
+    <div style="color:yellow; font-weight:bold" th:if="${#fields.hasErrors('fio')}" th:errors="*{fio}">ФИО Error
     </div>
     <br/>
 
         <label for="email">Введите email: </label>
         <input type="text" th:field="${user.email}" id="email"/>
-        <div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error
+        <div style="color:yellow; font-weight:bold" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error
         </div>
     <br/>
 
     <label for="address">Введите адрес: </label>
     <input type="text" th:field="${user.address}" id="address"/>
-    <div style="color:red" th:if="${#fields.hasErrors('address')}" th:errors="*{address}">Address Error
+    <div style="color:yellow; font-weight:bold" th:if="${#fields.hasErrors('address')}" th:errors="*{address}">Address Error
     </div>
     <br/>
 
     <label for="telephone">Введите телефон: </label>
     <input type="text" th:field="${user.telephone}" id="telephone"/>
-    <div style="color:red" th:if="${#fields.hasErrors('telephone')}" th:errors="*{telephone}">Telephone Error
+    <div style="color:yellow; font-weight:bold" th:if="${#fields.hasErrors('telephone')}" th:errors="*{telephone}">Telephone Error
     </div>
 
     <br/>
     <label for="password">Введите пароль: </label>
     <input type="password" th:field="${user.password}" id="password"/>
-    <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</div>
+    <div style="color:yellow; font-weight:bold" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</div>
     <br/>
 
 

@@ -1,15 +1,14 @@
 package ru.yarm.eshop5.Models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -43,16 +42,24 @@ public class Product {
     @Column(name = "weight")
     private Double weight;
 
-    @NotNull(message = "Поле дата изготовления не должно быть пустым")
+
     @Column(name = "date_manufactured")
     private LocalDate date_manufactured;
 
-    @NotNull(message = "Поле дата окончания ср.год. не должно быть пустым")
     @Column(name = "date_expire")
     private LocalDate date_expire;
 
     @Column(name = "active")
     private boolean active;
+
+    @Transient
+    @Pattern(regexp = "(0?[1-9]|[12][0-9]|3[01])\\.(0?[1-9]|1[012])\\.((?:19|20)[0-9][0-9])",message = "Используйте формат даты: ЧЧ.ММ.ГГГГ")
+    private String str_manufacture;
+
+    @Transient
+    @Pattern(regexp = "(0?[1-9]|[12][0-9]|3[01])\\.(0?[1-9]|1[012])\\.((?:19|20)[0-9][0-9])",message = "Используйте формат даты: ЧЧ.ММ.ГГГГ")
+    private String str_expire;
+
 
     public String getActiveStatus(){
         if (this.active){
@@ -66,6 +73,7 @@ public class Product {
         DateTimeFormatter formatter=DateTimeFormatter.ofPattern("dd.MM.yyyy");
         return localDate.format(formatter);
     }
+
 
     public String getExpire(){
         LocalDate localDate=this.date_expire;

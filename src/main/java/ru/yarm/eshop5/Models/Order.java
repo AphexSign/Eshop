@@ -47,13 +47,15 @@ public class Order {
 
     public String getCreatedTime(){
         LocalDateTime localDateTime=this.created;
-        DateTimeFormatter formatter=DateTimeFormatter.ofPattern("YYYY.MM.dd kk:mm:ss");
+//        DateTimeFormatter formatter=DateTimeFormatter.ofPattern("YYYY.MM.dd kk:mm:ss");
+        DateTimeFormatter formatter=DateTimeFormatter.ofPattern("dd.MM.YYYY kk:mm:ss");
         return localDateTime.format(formatter);
     }
 
     public String getChangedTime(){
         LocalDateTime localDateTime=this.changed;
-        DateTimeFormatter formatter=DateTimeFormatter.ofPattern("YYYY.MM.dd kk:mm:ss");
+//        DateTimeFormatter formatter=DateTimeFormatter.ofPattern("YYYY.MM.dd kk:mm:ss");
+        DateTimeFormatter formatter=DateTimeFormatter.ofPattern("dd.MM.YYYY kk:mm:ss");
         return localDateTime.format(formatter);
     }
 

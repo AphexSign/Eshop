@@ -1,5 +1,6 @@
 package ru.yarm.eshop5.Controllers;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,11 +23,9 @@ public class ProductInfoController {
     public String editProdSubmit(@ModelAttribute("product") @Valid Product product,
                                  BindingResult bindingResult)
     {
-        System.out.println("Press on button "+ product.getId());
-        //Id-менять не будем
+        
         if (bindingResult.hasErrors()) return "product_info";
-
-         productService.updateProductToDB(product);
+        productService.updateProductToDB(product);
         return "redirect:/prod_admin";
     }
 

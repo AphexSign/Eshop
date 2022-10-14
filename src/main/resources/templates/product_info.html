@@ -53,33 +53,54 @@
   <p>
   <label for="title">Введите новое название продукта: </label>
   <input type="text" th:value="${product.getTitle()}" name="title" id="title"/>
-  <div style="color:black; font-weight:bold" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Title Error</div>
+  <div style="color:yellow; font-weight:bold" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Title Error</div>
   </p>
 
   <p>
   <label for="price">Введите новую цену: </label>
   <input type="text" th:value="${product.getPrice()}" name="price" id="price"/>
-  <div style="color:black; font-weight:bold" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Price Error</div>
+  <div style="color:yellow; font-weight:bold" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Price Error</div>
   </p>
 
   <p>
   <label for="weight">Введите новый вес: </label>
   <input type="text" th:value="${product.getWeight()}" name="weight" id="weight"/>
-    <div style="color:black; font-weight:bold" th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}">Email Error</div>
+    <div style="color:yellow; font-weight:bold" th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}">Email Error</div>
   </p>
+
+<!--  старое-->
+
+<!--  <p>-->
+<!--  <label for="date_manufactured">Введите новую дату изготовления: </label>-->
+<!--  <input type="text" th:value="${product.getManufacture()}" name="date_manufactured" id="date_manufactured"/>-->
+<!--      <div style="color:yellow; font-weight:bold" th:if="${#fields.hasErrors('date_manufactured')}" th:errors="*{date_manufactured}">date1 Error</div>-->
+<!--  </p>-->
 
   <p>
-  <label for="date_manufactured">Введите новую дату изготовления: </label>
-  <input type="text" th:value="${product.getManufacture()}" name="date_manufactured" id="date_manufactured"/>
-      <div style="color:black; font-weight:bold" th:if="${#fields.hasErrors('date_manufactured')}" th:errors="*{date_manufactured}">date1 Error</div>
+    <label for="str_manufacture">Введите дату изготовления: </label>
+    <input type="text" th:field="${product.str_manufacture}" id="str_manufacture" name="str_manufacture" />
+  <div style="color:yellow; font-weight:bold" th:if="${#fields.hasErrors('str_manufacture')}" th:errors="*{str_manufacture}">date1 Error</div>
   </p>
 
 
   <p>
-  <label for="date_expire">Введите новую дату окон.срока годности: </label>
-  <input type="text" th:value="${product.getExpire()}" name="date_expire" id="date_expire"/>
-        <div style="color:black; font-weight:bold" th:if="${#fields.hasErrors('date_expire')}" th:errors="*{date_expire}">date2 Error</div>
+    <label for="str_expire">Введите дату окончания срока годности: </label>
+    <input type="text" th:field="${product.str_expire}" id="str_expire" name="str_expire"/>
+  <div style="color:yellow; font-weight:bold" th:if="${#fields.hasErrors('str_expire')}" th:errors="*{str_expire}">date2 Error</div>
   </p>
+
+
+
+
+<!--  Старая-->
+
+<!--  <p>-->
+<!--  <label for="date_expire">Введите новую дату окон.срока годности: </label>-->
+<!--  <input type="text" th:value="${product.getExpire()}" name="date_expire" id="date_expire"/>-->
+<!--        <div style="color:yellow; font-weight:bold" th:if="${#fields.hasErrors('date_expire')}" th:errors="*{date_expire}">date2 Error</div>-->
+<!--  </p>-->
+
+
 
 
   <input type="submit" value="Изменить данные" id="submit"/>

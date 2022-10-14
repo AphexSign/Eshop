@@ -23,9 +23,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/auth/login","/auth/registration","/error").permitAll()
+                .antMatchers("/auth/login","/auth/registration","/error","/products").permitAll()
                 .antMatchers("/users","/prod_admin","/order_admin").hasAnyAuthority(Role.ADMIN.name())
-                .antMatchers("/cart","/products","/orders").hasAnyAuthority(Role.ADMIN.name(), Role.MANAGER.name(), Role.CLIENT.name())
+                .antMatchers("/cart","/orders").hasAnyAuthority(Role.ADMIN.name(), Role.MANAGER.name(), Role.CLIENT.name())
                 .antMatchers("/hello").hasAnyAuthority(Role.ADMIN.name(), Role.MANAGER.name(), Role.CLIENT.name(), Role.BANNED.name())
                 .antMatchers("/banned").hasAnyAuthority(Role.BANNED.name())
                 .anyRequest().permitAll()

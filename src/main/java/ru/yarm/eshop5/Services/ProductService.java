@@ -9,6 +9,8 @@ import ru.yarm.eshop5.Repositories.ProductRepository;
 import ru.yarm.eshop5.Repositories.UserRepository;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -85,8 +87,14 @@ public class ProductService {
     @Transactional
     public void addProductToDB(Product product) {
         //Устанавливаем продукту активность
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+
         product.setActive(true);
-        //Записываем продукт в базу
+        product.setDate_manufactured(LocalDate.parse(product.getStr_manufacture(),formatter));
+        product.setDate_expire(LocalDate.parse(product.getStr_expire(),formatter));
+
+
         productRepository.save(product);
     }
 
@@ -110,7 +118,13 @@ public class ProductService {
     }
 
     public void updateProductToDB(Product product) {
-        //Получаем ID - записываем туда данные продукта и записываем его по ID
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+
+
+        product.setDate_manufactured(LocalDate.parse(product.getStr_manufacture(),formatter));
+        product.setDate_expire(LocalDate.parse(product.getStr_expire(),formatter));
+
         product.setActive(true);
         productRepository.save(product);
     }

@@ -5,8 +5,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.yarm.eshop5.Models.Product;
-import ru.yarm.eshop5.Repositories.ProductRepository;
 import ru.yarm.eshop5.Services.ProductService;
+import ru.yarm.eshop5.Services.ProductValidator;
+
 
 import javax.validation.Valid;
 import java.util.List;
@@ -16,10 +17,11 @@ import java.util.List;
 public class ProductAdminController {
 
     private final ProductService productService;
+    private final ProductValidator productValidator;
 
-
-    public ProductAdminController(ProductService productService) {
+    public ProductAdminController(ProductService productService, ProductValidator productValidator) {
         this.productService = productService;
+        this.productValidator = productValidator;
     }
 
     @GetMapping
@@ -34,6 +36,7 @@ public class ProductAdminController {
     public String performRegist(@ModelAttribute("product") @Valid Product product,
                                 BindingResult bindingResult)
     {
+       // productValidator.validate(product, bindingResult);
         if (bindingResult.hasErrors()) return "prod_admin";
         productService.addProductToDB(product);
         return "redirect:/prod_admin";
