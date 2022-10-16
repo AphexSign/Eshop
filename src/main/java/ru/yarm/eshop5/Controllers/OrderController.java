@@ -5,23 +5,22 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import ru.yarm.eshop5.Models.Order;
-import ru.yarm.eshop5.Models.User;
-import ru.yarm.eshop5.Repositories.OrderRepository;
+import ru.yarm.eshop5.Models.OrderDetails;
+import ru.yarm.eshop5.Services.OrderDetailService;
 import ru.yarm.eshop5.Services.OrderService;
 
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 @Controller
 public class OrderController {
 
     private final OrderService orderService;
+    private final OrderDetailService orderDetailService;
 
-    public OrderController(OrderService orderService) {
+    public OrderController(OrderService orderService, OrderDetailService orderDetailService) {
         this.orderService = orderService;
+        this.orderDetailService = orderDetailService;
     }
 
     //Показать всю корзину, с сортировкой
@@ -55,6 +54,25 @@ public class OrderController {
         return "redirect:/orders";
     }
 
+    @GetMapping("orders/{id}/details")
+    public String showInfoOrder(@PathVariable Long id, Model model, Principal principal) {
+
+
+
+        if(principal == null){
+            model.addAttribute("orderDetails", new OrderDetails());
+        }
+        else {
+            List<OrderDetails> orderDetailsList=orderDetailService.findAllOrderDetailsByOrderMy(id, principal);
+            model.addAttribute("orderDetails",orderDetailsList);
+        }
+
+        return "order_detail_my";
+
+
+
+
+    }
 
 
 

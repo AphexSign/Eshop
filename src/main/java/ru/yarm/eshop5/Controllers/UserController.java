@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import ru.yarm.eshop5.Models.Role;
 import ru.yarm.eshop5.Models.User;
 import ru.yarm.eshop5.Repositories.UserRepository;
 import ru.yarm.eshop5.Services.UserService;
@@ -21,6 +22,7 @@ public class UserController {
         this.userService = userService;
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/users")
     public String showUsers(Model model) {
         List<User> users=userService.getAllByOrderByIdAsc();
@@ -28,17 +30,22 @@ public class UserController {
         return "users";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/users/{id}/ban")
     public String ban(@PathVariable Long id) {
         userService.banUser(id);
         return "redirect:/users";
     }
+
+
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/users/{id}/unban")
     public String unban(@PathVariable Long id) {
         userService.unbanUser(id);
         return "redirect:/users";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/users/{id}/mk_manager")
     public String mk_manager(@PathVariable Long id) {
         userService.mk_manager(id);

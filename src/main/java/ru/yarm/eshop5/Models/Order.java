@@ -36,35 +36,48 @@ public class Order {
     private User user;
     private BigDecimal sum;
 
-    @Column(name = "paymethod")
-    private String pay;
+    @ManyToOne
+    @JoinColumn(name = "pay_method_id")
+    private Pay_method pay_method;
+
+    @ManyToOne
+    @JoinColumn(name = "status_id")
+    private Order_status order_status;
+
     private String address;
+
     @OneToMany(mappedBy = "order",cascade = CascadeType.ALL)
     private List<OrderDetails> details;
-    @Enumerated(EnumType.STRING)
-    private OrderStatus status;
+
+    public Pay_method getPay_method() {
+        return pay_method;
+    }
+
+
+    //    @Enumerated(EnumType.STRING)
+//    private OrderStatus status;
+
+
 
 
     public String getCreatedTime(){
         LocalDateTime localDateTime=this.created;
-//        DateTimeFormatter formatter=DateTimeFormatter.ofPattern("YYYY.MM.dd kk:mm:ss");
         DateTimeFormatter formatter=DateTimeFormatter.ofPattern("dd.MM.YYYY kk:mm:ss");
         return localDateTime.format(formatter);
     }
 
     public String getChangedTime(){
         LocalDateTime localDateTime=this.changed;
-//        DateTimeFormatter formatter=DateTimeFormatter.ofPattern("YYYY.MM.dd kk:mm:ss");
         DateTimeFormatter formatter=DateTimeFormatter.ofPattern("dd.MM.YYYY kk:mm:ss");
         return localDateTime.format(formatter);
     }
 
-    public String getPayMethod(){
-        if (this.pay.equals("Bank")){
-            return "Безналичная";
-        }
-        else {return "Наличная";}
-    }
+//    public String getPayMethod(){
+//        if (this.pay.equals("Bank")){
+//            return "Безналичная";
+//        }
+//        else {return "Наличная";}
+//    }
 
 
 

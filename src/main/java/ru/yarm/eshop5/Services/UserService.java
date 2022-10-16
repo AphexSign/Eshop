@@ -1,8 +1,6 @@
 package ru.yarm.eshop5.Services;
 
 import org.springframework.stereotype.Service;
-import ru.yarm.eshop5.Models.Order;
-import ru.yarm.eshop5.Models.OrderStatus;
 import ru.yarm.eshop5.Models.Role;
 import ru.yarm.eshop5.Models.User;
 import ru.yarm.eshop5.Repositories.UserRepository;

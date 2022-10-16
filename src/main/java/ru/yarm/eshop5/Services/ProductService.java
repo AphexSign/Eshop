@@ -89,11 +89,9 @@ public class ProductService {
         //Устанавливаем продукту активность
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-
         product.setActive(true);
         product.setDate_manufactured(LocalDate.parse(product.getStr_manufacture(),formatter));
         product.setDate_expire(LocalDate.parse(product.getStr_expire(),formatter));
-
 
         productRepository.save(product);
     }
@@ -117,6 +115,7 @@ public class ProductService {
         return productRepository.findById(id).get();
     }
 
+    @Transactional
     public void updateProductToDB(Product product) {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");

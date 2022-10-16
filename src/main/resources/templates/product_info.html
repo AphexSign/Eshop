@@ -89,6 +89,10 @@
   <div style="color:yellow; font-weight:bold" th:if="${#fields.hasErrors('str_expire')}" th:errors="*{str_expire}">date2 Error</div>
   </p>
 
+  <p>
+    <label for="category"> Выберите категорию: </label>
+    <select id="category" name="category"> <option th:each="category:${categories}" th:text="${category.title}" th:value="${category.id}"  th:selected="${product.getCategory().getId()}" /></select>
+  </p>
 
 
 
@@ -101,17 +105,12 @@
 <!--  </p>-->
 
 
-
-
   <input type="submit" value="Изменить данные" id="submit"/>
 
 <!--  </div>-->
 </form>
 
-
 </div>
-
-
 
 </body>
 </html>

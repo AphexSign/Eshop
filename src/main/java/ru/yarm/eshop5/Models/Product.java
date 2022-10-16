@@ -1,18 +1,15 @@
 package ru.yarm.eshop5.Models;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
+
 
 @Data
 @NoArgsConstructor
@@ -52,6 +49,11 @@ public class Product {
     @Column(name = "active")
     private boolean active;
 
+    @NotNull(message = "Категория не может быть пустой")
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
     @Transient
     @Pattern(regexp = "(0?[1-9]|[12][0-9]|3[01])\\.(0?[1-9]|1[012])\\.((?:19|20)[0-9][0-9])",message = "Используйте формат даты: ЧЧ.ММ.ГГГГ")
     private String str_manufacture;
@@ -67,6 +69,8 @@ public class Product {
         }
         else {return "Нет";}
     }
+
+
 
     public String getManufacture(){
         LocalDate localDate=this.date_manufactured;

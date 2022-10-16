@@ -23,26 +23,27 @@
     <tr th:each="order : ${orders}">
         <td align="center" th:text="${order.id}">1</td>
         <td align="center" th:text="${order.sum}">200</td>
-        <td align="center" th:text="${order.getPayMethod()}">Money</td>
+        <td align="center" th:text="${order.getPay_method().getTitle()}">Money</td>
 
         <td th:text="${order.address}">Address</td>
-        <td align="center" th:text="${order.status.getTitle()}">New</td>
+        <td align="center" th:text="${order.getOrder_status().getTitle()}">New</td>
         <td align="center" th:text="${order.getCreatedTime()}">New</td>
         <td align="center" th:text="${order.getChangedTime()}">New</td>
         <td align="center" th:text="${order.user.fio}">FIO</td>
 
-        <td th:if="${order.getStatus.name()!='NEW'}">
+        <td><a title="Подробности заказа" th:href="@{/orders/{id}/details(id=${order.id})}"><img th:src="@{/images/lupa.png}" height="32px" width="32px"/></a></td>
+        <td th:if="${order.getOrder_status().getTitle()!='Новый'}">
 
         </td>
-        <td th:if="${order.getStatus.name()=='NEW'}">
+        <td th:if="${order.getOrder_status().getTitle()=='Новый'}">
         <a title="Оплатить заказ" th:href="@{/orders/{id}/pay(id=${order.id})}"><img th:src="@{/images/pay.png}" height="32px" width="32px"/></a>
         </td>
 
 
-        <td th:if="${order.getStatus.name()!='NEW'}">
+        <td th:if="${order.getOrder_status().getTitle()!='Новый'}">
 
         </td>
-        <td th:if="${order.getStatus.name()=='NEW'}">
+        <td th:if="${order.getOrder_status().getTitle()=='Новый'}">
            <a title="Отменить заказ" th:href="@{/orders/{id}/cancel(id=${order.id})}"><img th:src="@{/images/cancel.png}" height="32px" width="32px"/></a>
         </td>
 

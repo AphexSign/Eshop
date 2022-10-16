@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Данные о категории</title>
+
+
+    <style type="text/css">
+        label{
+            width:100px;
+            display:inline-block;
+            margin:4px;
+        }
+        #form{
+            margin-left:auto;
+            margin-right:auto;
+            width:15%;
+
+
+            border-radius: 10px;
+            background:dodgerblue;
+            color:white;
+            /*width: 350px;*/
+            padding:4px}
+        input{width: auto}
+        h2{
+            text-align:center}
+        #submit{
+            width: 130px;
+            padding: 3px;
+            margin-left: 100px;
+            margin-bottom: 12px;
+
+        }
+
+    </style>
+
+
+</head>
+<body>
+<div th:insert="~{fragments/menu :: #nav-menu}"></div>
+
+<div id="form">
+    <h2>Изменение данных о категории</h2>
+    <form th:method="POST" th:action="@{/category_info}" th:object="${category}">
+
+        <p>
+            <label for="id">Id категории: </label>
+            <input type="text" th:value="${category.getId()}" name="id" id="id" readonly/>
+        </p>
+
+        <p>
+            <label for="title">Введите новое название категории: </label>
+            <input type="text" th:value="${category.title}" name="title" id="title"/>
+        <div style="color:yellow; font-weight:bold" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Title Error</div>
+        </p>
+
+        <input type="submit" value="Изменить данные" id="submit"/>
+
+    </form>
+
+</div>
+
+</body>
+</html>

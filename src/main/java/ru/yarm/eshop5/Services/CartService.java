@@ -1,13 +1,11 @@
 package ru.yarm.eshop5.Services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.yarm.eshop5.DTO.CartDTO;
 import ru.yarm.eshop5.DTO.CartDetailDTO;
 import ru.yarm.eshop5.Models.*;
-import ru.yarm.eshop5.Repositories.CartRepository;
-import ru.yarm.eshop5.Repositories.OrderRepository;
-import ru.yarm.eshop5.Repositories.ProductRepository;
-import ru.yarm.eshop5.Repositories.UserRepository;
+import ru.yarm.eshop5.Repositories.*;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
@@ -24,12 +22,17 @@ public class CartService {
     private final ProductRepository productRepository;
     private final UserRepository userRepository;
     private final OrderRepository orderRepository;
+    private final Order_StatusRepository order_statusRepository;
+    private final Pay_methodRepository pay_methodRepository;
 
-    public CartService(CartRepository cartRepository, ProductRepository productRepository, UserRepository userRepository, OrderRepository orderRepository) {
+    @Autowired
+    public CartService(CartRepository cartRepository, ProductRepository productRepository, UserRepository userRepository, OrderRepository orderRepository, Order_StatusRepository order_statusRepository, Pay_methodRepository pay_methodRepository) {
         this.cartRepository = cartRepository;
         this.productRepository = productRepository;
         this.userRepository = userRepository;
         this.orderRepository = orderRepository;
+        this.order_statusRepository = order_statusRepository;
+        this.pay_methodRepository = pay_methodRepository;
     }
 
     @Transactional
@@ -123,7 +126,12 @@ public class CartService {
         //Создаем новый заказ
         Order order = new Order();
         //Даем ему новый статус
-        order.setStatus(OrderStatus.NEW);
+        //Новый заказ
+        Long pay_value=Long.parseLong(payment);
+
+        order.setOrder_status(order_statusRepository.getReferenceById(1L));
+        order.setPay_method(pay_methodRepository.getReferenceById(pay_value));
+
         //Назначаем заказу текущего юзера
         order.setUser(user);
         Map<Product, Long> productWithAmount = cart.getProducts().stream()
@@ -140,8 +148,8 @@ public class CartService {
         order.setDetails(orderDetails);
         //Заполняем суммы в заказе
         order.setSum(total);
-        order.setPay(payment);
-        //Даем адрес никакой
+
+        //Даем адрес юзера
         order.setAddress(user.getAddress());
 
         orderRepository.save(order);

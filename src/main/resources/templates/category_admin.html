@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Управление категориями товаров</title>
+
+    <style type="text/css">
+        label{
+            width:100px;
+            display:inline-block;
+            margin:4px;
+        }
+
+        #mytable{
+            margin-left:700px;
+        }
+
+        #form{
+
+            margin-left:auto;
+            margin-right:600px;
+            width:15%;
+
+
+            border-radius: 10px;
+            background:dodgerblue;
+            color:white;
+            /*width: 350px;*/
+            padding:4px}
+        input{        width: auto;
+
+        }
+        h2{
+            text-align:center}
+        #submit{
+            width: 160px;
+            padding: 3px;
+            margin-left: 100px;
+            margin-bottom: 12px;
+
+        }
+
+    </style>
+
+</head>
+<body>
+
+<div th:insert="~{fragments/menu :: #nav-menu}"></div>
+<h2 align="center">Управление категориями товаров:</h2>
+
+<div style="float:left;" id="mytable">
+<table border="0" align="center">
+    <tr BGCOLOR="#DEB887">
+        <td align="center" style="font-weight:bold; font-size:20px">Id категории</td>
+        <td align="center" style="font-weight:bold; font-size:20px">Наименование категории</td>
+    </tr>
+    <tr th:each="category : ${categories}">
+        <td align="center" th:text="${category.id}">1</td>
+        <td align="center" th:text="${category.title}">200</td>
+        <td><a title="Редактировать категорию" th:href="@{/category_admin/{id}/edit(id=${category.id})}"><img th:src="@{/images/manager.png}" height="32px" width="32px"/></a></td>
+    </tr>
+</table>
+    </div>
+
+<div id="form" style="float:right;">
+    <form th:method="POST" th:action="@{/category_admin}" th:object="${category}">
+        <p>
+            <label for="title">Введите наименование категории: </label>
+            <input type="text" th:field="${category.title}" id="title" placeholder="---категория---"/>
+        <div style="color:yellow; font-weight:bold" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Title Error</div>
+        </p>
+
+        <input type="submit" value="Добавить категорию" id="submit"/>
+    </form>
+
+</div>
+
+</body>
+</html>

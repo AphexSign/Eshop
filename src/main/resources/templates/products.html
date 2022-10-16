@@ -15,6 +15,7 @@
         <td align="center" style="font-weight:bold; font-size:20px">Вес, кг.</td>
         <td align="center" style="font-weight:bold; font-size:20px">Дата изготовления</td>
         <td align="center" style="font-weight:bold; font-size:20px">Срок годности</td>
+        <td align="center" style="font-weight:bold; font-size:20px">Категория</td>
 <!--        <td></td>-->
     </tr>
     <tr th:each="product : ${products}">
@@ -23,6 +24,7 @@
         <td align="center" th:text="${product.weight}">12.0</td>
         <td align="center" th:text="${product.getManufacture()}">12.0</td>
         <td align="center" th:text="${product.getExpire()}">12.0</td>
+        <td align="center" th:text="${product.getCategory().getTitle()}">Категория</td>
         <td sec:authorize="isAuthenticated()"><a th:title="${'Добавить '+product.title+' в корзину'}" th:href="@{/products/{id}/cart(id=${product.id})}"><img th:src="@{/images/addcart.png}" height="32px" width="32px"/></a></td>
         <td sec:authorize="!isAuthenticated()"><a th:href="@{/hello}"><img th:src="@{/images/addcart.png}" height="32px" width="32px"/></a></td>
     </tr>

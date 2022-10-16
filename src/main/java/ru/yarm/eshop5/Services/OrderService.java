@@ -1,13 +1,12 @@
 package ru.yarm.eshop5.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import ru.yarm.eshop5.Models.Order;
-import ru.yarm.eshop5.Models.OrderStatus;
 import ru.yarm.eshop5.Models.User;
 import ru.yarm.eshop5.Repositories.OrderCrudRepository;
 import ru.yarm.eshop5.Repositories.OrderRepository;
+import ru.yarm.eshop5.Repositories.Order_StatusRepository;
 import ru.yarm.eshop5.Repositories.UserRepository;
 
 import javax.transaction.Transactional;
@@ -22,13 +21,15 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final UserRepository userRepository;
     private final OrderCrudRepository orderCrudRepository;
+    private final Order_StatusRepository order_statusRepository;
 
 
     @Autowired
-    public OrderService(OrderRepository orderRepository, UserRepository userRepository, OrderCrudRepository orderCrudRepository) {
+    public OrderService(OrderRepository orderRepository, UserRepository userRepository, OrderCrudRepository orderCrudRepository, Order_StatusRepository order_statusRepository) {
         this.orderRepository = orderRepository;
         this.userRepository = userRepository;
         this.orderCrudRepository = orderCrudRepository;
+        this.order_statusRepository = order_statusRepository;
     }
 
     //Выдача несортированного списка Заказов
@@ -43,7 +44,8 @@ public class OrderService {
     public void payOrder(Long id, String name) {
         User user=userRepository.findByName(name).get();
         Order order=orderRepository.getReferenceById(id);
-        order.setStatus(OrderStatus.PAID);
+//        order.setStatus(OrderStatus.PAID);
+        order.setOrder_status(order_statusRepository.getReferenceById(4L));
         order.setChanged(LocalDateTime.now());
         orderRepository.save(order);
     }
@@ -52,7 +54,8 @@ public class OrderService {
     public void cancelOrder(Long id, String name) {
         User user=userRepository.findByName(name).get();
         Order order=orderRepository.getReferenceById(id);
-        order.setStatus(OrderStatus.CANCELLED);
+//        order.setStatus(OrderStatus.CANCELLED);
+        order.setOrder_status(order_statusRepository.getReferenceById(3L));
         order.setChanged(LocalDateTime.now());
         orderRepository.save(order);
     }
@@ -84,11 +87,17 @@ public class OrderService {
         return orders;
     }
 
-
+    @Transactional
     public void deliverOrder(Long id) {
         Order order=orderRepository.getById(id);
-        order.setStatus(OrderStatus.CLOSED);
+        order.setOrder_status(order_statusRepository.getReferenceById(5L));
         order.setChanged(LocalDateTime.now());
         orderRepository.save(order);
     }
+
+    public Order getOrderById(Long id){
+       return orderRepository.getReferenceById(id);
+    }
+
+
 }

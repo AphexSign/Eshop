@@ -1,12 +1,16 @@
 package ru.yarm.eshop5.Controllers;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import ru.yarm.eshop5.Models.Category;
 import ru.yarm.eshop5.Models.Order;
-import ru.yarm.eshop5.Repositories.OrderRepository;
+import ru.yarm.eshop5.Models.OrderDetails;
+import ru.yarm.eshop5.Services.OrderDetailService;
 import ru.yarm.eshop5.Services.OrderService;
 
 import java.util.List;
@@ -16,24 +20,40 @@ import java.util.List;
 public class OrderAdminController {
 
     private final OrderService orderService;
+    private final OrderDetailService orderDetailService;
 
-    public OrderAdminController(OrderService orderService) {
+    public OrderAdminController(OrderService orderService, OrderDetailService orderDetailService) {
         this.orderService = orderService;
+        this.orderDetailService = orderDetailService;
     }
 
-    //Вывести абсолютно все заказы, всех пользователей со статусом
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('MANAGER')")
     @GetMapping
     public String showOrder(Model model) {
         List<Order> orderList=orderService.getAllOrdersSortedById();
         model.addAttribute("orders", orderList);
+
+       // System.err.println(orderDetailService.findAllOrderDetailsByOrder(6L).size());
+
         return "order_admin";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('MANAGER')")
     @GetMapping("/{id}/deliver")
     public String deliverOrder(@PathVariable Long id) {
         orderService.deliverOrder(id);
         return "redirect:/order_admin";
     }
+
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('MANAGER')")
+    @GetMapping("/{id}/details")
+    public String showInfoOrder(@PathVariable Long id, Model model) {
+        List<OrderDetails> orderDetailsList=orderDetailService.findAllOrderDetailsByOrder(id);
+        model.addAttribute("orderDetails",orderDetailsList);
+        return "order_info";
+    }
+
+
 
 
 }

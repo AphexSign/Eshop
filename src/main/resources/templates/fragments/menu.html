@@ -11,16 +11,23 @@
         <td align="center">
             <table>
                 <tr>
-                    <td> Меню -> </td>
-                    <td><a th:href="@{/hello}">   На главную   </a></td>
-                    <td><a th:href="@{/products}">   Товары   </a></td>
-                    <td sec:authorize="isAuthenticated()"><a th:href="@{/cart}">   Корзина товаров   </a></td>
-                    <td sec:authorize="isAuthenticated()"><a th:href="@{/orders}">   Заказы   </a></td>
-                    <td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/users}">   Пользователи   </a></td>
-                    <td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/prod_admin}">   Управление товарами   </a></td>
-                    <td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/order_admin}">   Управление заказами   </a></td>
+                    <td> <img th:src="@{/images/menu.png}" height="49px" width="151px"/> </td>
+                    <td><a th:href="@{/hello}"> <img th:src="@{/images/main.png}" height="49px" width="151px"/> </a></td>
+                    <td><a th:href="@{/products}"> <img th:src="@{/images/Product.png}" height="49px" width="151px"/>  </a></td>
+                    <td sec:authorize="isAuthenticated()"><a th:href="@{/cart}"><img th:src="@{/images/Cart.png}" height="49px" width="151px"/>  </a></td>
+                    <td sec:authorize="isAuthenticated()"><a th:href="@{/orders}"><img th:src="@{/images/order.png}" height="49px" width="151px"/> </a></td>
+                    <td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/users}"> <img th:src="@{/images/admin_user.png}" height="49px" width="151px"/> </a></td>
+                    <td sec:authorize="hasAuthority('ADMIN') or hasAuthority('MANAGER')"><a th:href="@{/category_admin}"> <img th:src="@{/images/admin_category.png}" height="49px" width="151px"/></a></td>
+                    <td sec:authorize="hasAuthority('ADMIN') or hasAuthority('MANAGER')"><a th:href="@{/prod_admin}"> <img th:src="@{/images/admin_product.png}" height="49px" width="151px"/></a></td>
+                    <td sec:authorize="hasAuthority('ADMIN') or hasAuthority('MANAGER')"><a th:href="@{/order_admin}"><img th:src="@{/images/admin_order.png}" height="49px" width="151px"/> </a></td>
+
                 </tr>
             </table>
+
+
+
+
+
 
         <td align="right">
             <div sec:authorize="isAuthenticated()">
