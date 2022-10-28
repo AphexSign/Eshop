@@ -35,9 +35,11 @@ public class CategoryAdminController {
 
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('MANAGER')")
     @PostMapping("/category_admin")
-    public String RegisterCategory(@ModelAttribute("category") @Valid Category category, BindingResult bindingResult)
+    public String RegisterCategory(@ModelAttribute("category") @Valid Category category, BindingResult bindingResult, Model model)
     {
-        if (bindingResult.hasErrors()) return "category_admin";
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("categories",categoryService.getAllCategorySortedById());
+            return "category_admin";}
 
         categoryService.addCategoryToDB(category);
         return "redirect:/category_admin";
@@ -66,6 +68,15 @@ public class CategoryAdminController {
         categoryService.updateCategoryToDB(category);
         return "redirect:/category_admin";
     }
+
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('MANAGER')")
+    @GetMapping("category_admin/{id}/delete")
+    public String deleteCategory(@PathVariable Long id) {
+        categoryService.deleteCategory(id);
+        return "redirect:/category_admin";
+    }
+
+
 
 
 

@@ -57,8 +57,6 @@ public class OrderController {
     @GetMapping("orders/{id}/details")
     public String showInfoOrder(@PathVariable Long id, Model model, Principal principal) {
 
-
-
         if(principal == null){
             model.addAttribute("orderDetails", new OrderDetails());
         }

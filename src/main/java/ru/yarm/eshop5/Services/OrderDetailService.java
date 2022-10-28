@@ -3,7 +3,6 @@ package ru.yarm.eshop5.Services;
 import org.springframework.stereotype.Service;
 import ru.yarm.eshop5.Models.Order;
 import ru.yarm.eshop5.Models.OrderDetails;
-import ru.yarm.eshop5.Models.Product;
 import ru.yarm.eshop5.Models.User;
 
 import java.security.Principal;
@@ -16,8 +15,10 @@ public class OrderDetailService {
     private final OrderService orderService;
 
 
+
     public OrderDetailService(OrderService orderService) {
         this.orderService = orderService;
+
     }
 
     public List<OrderDetails> findAllOrderDetailsByOrder(Long id){
@@ -35,9 +36,11 @@ public class OrderDetailService {
         else {
             return new ArrayList<OrderDetails>();
         }
-
     }
 
+    public void deleteSingleOrderDetail(Long id){
+//        orderDetailRepository.delete(orderDetailRepository.getById(id));
+    }
 
 
 }

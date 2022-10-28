@@ -24,8 +24,6 @@ public class HelloController {
     }
 
 
-
-
     @GetMapping("/hello")
     public String aboutUser(Model model, Principal principal){
             User user=userRepository.findByName(principal.getName()).get();

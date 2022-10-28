@@ -3,11 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <title>Каталог доступных товаров</title>
+
+    <style type="text/css">
+        label{
+            width:100px;
+            display:inline-block;
+            margin:4px;
+        }
+
+        #mytable{
+            margin-left:250px;
+        }
+
+        #form{
+
+            margin-left:auto;
+            margin-right:500px;
+            width:15%;
+            height: 100%;
+
+
+            border-radius: 10px;
+            background:dodgerblue;
+            color:white;
+            /*width: 350px;*/
+            padding:4px}
+        input{        width: auto;
+
+        }
+        h2{
+            text-align:center}
+        #submit{
+            width: 130px;
+            padding: 3px;
+            margin-left: 100px;
+            margin-bottom: 12px;
+        }
+    </style>
+
+
 </head>
 <body>
 <div th:insert="~{fragments/menu :: #nav-menu}"></div>
 <h2 align="center">Выберите товар из нашего ассортимента:</h2>
 
+
+<div style="float:left;" id="mytable">
 <table border="0" align="center" id="table">
     <tr BGCOLOR="#DEB887">
         <td align="center" style="font-weight:bold; font-size:20px">Наименование</td>
@@ -29,6 +70,25 @@
         <td sec:authorize="!isAuthenticated()"><a th:href="@{/hello}"><img th:src="@{/images/addcart.png}" height="32px" width="32px"/></a></td>
     </tr>
 </table>
+</div>
+
+
+<div id="form" style="float:right;">
+    <form th:method="POST" th:action="@{/products}" th:object="${category}">
+
+        <p>
+            <label for="category"> Выберите категорию: </label>
+            <select id="category" name="category"> <option th:each="category:${categories}" th:text="${category.title}" th:value="${category.id}" value="category.id" /></select>
+        </p>
+
+        <input type="submit" value="Найти товар" id="submit"/>
+    </form>
+</div>
+
+
+
+
+
 
 
 

@@ -45,8 +45,8 @@
     <form th:method="POST" th:action="@{/category_info}" th:object="${category}">
 
         <p>
-            <label for="id">Id категории: </label>
-            <input type="text" th:value="${category.getId()}" name="id" id="id" readonly/>
+<!--            <label for="id">Id категории: </label>-->
+            <input type="hidden" th:value="${category.getId()}" name="id" id="id" readonly/>
         </p>
 
         <p>

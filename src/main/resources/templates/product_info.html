@@ -45,26 +45,26 @@
 <form th:method="POST" th:action="@{/product_info}" th:object="${product}">
 
   <p>
-  <label for="id">Id товара: </label>
-  <input type="text" th:value="${product.getId()}" name="id" id="id" readonly/>
+<!--  <label for="id">Id товара: </label>-->
+  <input type="hidden" th:value="${product.getId()}" name="id" id="id" readonly/>
   </p>
 
 
   <p>
   <label for="title">Введите новое название продукта: </label>
-  <input type="text" th:value="${product.getTitle()}" name="title" id="title"/>
+  <input type="text" th:value="${product.getTitle()}" name="title" id="title" placeholder="---Название продукта---"/>
   <div style="color:yellow; font-weight:bold" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Title Error</div>
   </p>
 
   <p>
   <label for="price">Введите новую цену: </label>
-  <input type="text" th:value="${product.getPrice()}" name="price" id="price"/>
+  <input type="text" th:value="${product.getPrice()}" name="price" id="price" placeholder="---Цена продукта---"/>
   <div style="color:yellow; font-weight:bold" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Price Error</div>
   </p>
 
   <p>
   <label for="weight">Введите новый вес: </label>
-  <input type="text" th:value="${product.getWeight()}" name="weight" id="weight"/>
+  <input type="text" th:value="${product.getWeight()}" name="weight" id="weight" placeholder="---Вес продукта---"/>
     <div style="color:yellow; font-weight:bold" th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}">Email Error</div>
   </p>
 
@@ -78,20 +78,21 @@
 
   <p>
     <label for="str_manufacture">Введите дату изготовления: </label>
-    <input type="text" th:field="${product.str_manufacture}" id="str_manufacture" name="str_manufacture" />
+    <input type="text" th:field="${product.str_manufacture}" id="str_manufacture" name="str_manufacture" placeholder="дд.мм.гггг"/>
   <div style="color:yellow; font-weight:bold" th:if="${#fields.hasErrors('str_manufacture')}" th:errors="*{str_manufacture}">date1 Error</div>
   </p>
 
 
   <p>
     <label for="str_expire">Введите дату окончания срока годности: </label>
-    <input type="text" th:field="${product.str_expire}" id="str_expire" name="str_expire"/>
+    <input type="text" id="str_expire" name="str_expire" th:field="${product.str_expire}" placeholder="дд.мм.гггг"/>
   <div style="color:yellow; font-weight:bold" th:if="${#fields.hasErrors('str_expire')}" th:errors="*{str_expire}">date2 Error</div>
   </p>
 
   <p>
     <label for="category"> Выберите категорию: </label>
-    <select id="category" name="category"> <option th:each="category:${categories}" th:text="${category.title}" th:value="${category.id}"  th:selected="${product.getCategory().getId()}" /></select>
+    <select id="category" name="category"> <option th:each="category:${categories}" th:text="${category.title}" th:value="${category.id}" th:selected="${category.id} == ${product.getCategory().getId()}" /></select>
+  <div style="color:yellow; font-weight:bold" th:if="${#fields.hasErrors('category')}" th:errors="*{category}">category Error</div>
   </p>
 
 

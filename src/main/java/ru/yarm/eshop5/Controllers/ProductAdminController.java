@@ -31,7 +31,7 @@ public class ProductAdminController {
 
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('MANAGER')")
     @GetMapping
-    public String registProduct(@ModelAttribute("product") Product product, @ModelAttribute("category")Category category, Model model) {
+    public String registerProduct(@ModelAttribute("product") Product product, @ModelAttribute("category")Category category, Model model) {
 
         model.addAttribute("products",productService.getAllByOrderByIdAsc());
         model.addAttribute("categories",categoryService.getAllCategorySortedById());
@@ -41,10 +41,13 @@ public class ProductAdminController {
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('MANAGER')")
     @PostMapping
     public String performRegist(@ModelAttribute("product") @Valid Product product,
-                                BindingResult bindingResult)
+                                BindingResult bindingResult, Model model)
     {
-       // productValidator.validate(product, bindingResult);
+
+        productValidator.validate(product, bindingResult);
         if (bindingResult.hasErrors()) {
+            model.addAttribute("products",productService.getAllByOrderByIdAsc());
+            model.addAttribute("categories",categoryService.getAllCategorySortedById());
             return "prod_admin";
         }
 
@@ -62,7 +65,7 @@ public class ProductAdminController {
 
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('MANAGER')")
     @GetMapping("/{id}/active")
-    public String activProd(@PathVariable Long id) {
+    public String activeProd(@PathVariable Long id) {
         productService.activeProd(id);
         return "redirect:/prod_admin";
     }
@@ -78,24 +81,13 @@ public class ProductAdminController {
         return "product_info";
     }
 
-
-
-    private void fillMenuWithData(Model model){
-        model.addAttribute("products",productService.getAllByOrderByIdAsc());
-        model.addAttribute("categories",categoryService.getAllCategorySortedById());
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('MANAGER')")
+    @GetMapping("/{id}/delete")
+    public String deleteProd(@PathVariable Long id) {
+        productService.deleteProd(id);
+        return "redirect:/prod_admin";
     }
 
-    //Сделать редактирование категории товаров. Выпадает из списка ComboBox
-
-
-
-    //Сделать редактирование продуктов, наводишь на товар и можно поменять его ценник, название и характеристики
-    //Просмотреть весь заказ.
     //Сделать новостную ленту внутри магазина
-    //Вывод текущего времени на сайте
-    //Прикрутить прогноз погоды
-
-
-
 
 }

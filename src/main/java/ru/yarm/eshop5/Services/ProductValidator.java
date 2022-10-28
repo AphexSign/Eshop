@@ -21,8 +21,39 @@ public class ProductValidator implements Validator {
 
     @Override
     public void validate(Object o, Errors errors) {
-
         Product product=(Product) o;
+
+        DateTimeFormatter formatter=DateTimeFormatter.ofPattern("dd.MM.yyyy");
+
+        try{
+           LocalDate man=LocalDate.parse(product.getStr_manufacture(),formatter);
+
+        }
+        catch (Exception ignored){
+            errors.rejectValue("str_manufacture","","Формат даты неверен");
+        }
+
+        try{
+            LocalDate exp=LocalDate.parse(product.getStr_expire(),formatter);
+        }
+        catch (Exception ignored){
+            errors.rejectValue("str_expire","","Формат даты неверен");
+        }
+
+        try{
+            if(LocalDate.parse(product.getStr_manufacture(),formatter).isAfter(LocalDate.parse(product.getStr_expire(),formatter))){
+                errors.rejectValue("str_manufacture","","Нарушена логика даты");
+            }
+        }
+        catch (Exception ignored){
+
+        }
+
+
+
+
+
+
 
     }
 

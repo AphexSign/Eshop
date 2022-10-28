@@ -45,4 +45,10 @@ public class UserService {
     public List<User> getAllByOrderByIdAsc() {
      return  userRepository.findAllByOrderByIdAsc();
     }
+
+    @Transactional
+    public void delete(Long id) {
+        //Удалить все OrderDetails, orders
+        userRepository.delete(userRepository.getById(id));
+    }
 }

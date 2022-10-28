@@ -1,10 +1,7 @@
 package ru.yarm.eshop5.Services;
 
 import org.springframework.stereotype.Service;
-import ru.yarm.eshop5.Models.Cart;
-import ru.yarm.eshop5.Models.Product;
-import ru.yarm.eshop5.Models.Role;
-import ru.yarm.eshop5.Models.User;
+import ru.yarm.eshop5.Models.*;
 import ru.yarm.eshop5.Repositories.ProductRepository;
 import ru.yarm.eshop5.Repositories.UserRepository;
 
@@ -50,6 +47,14 @@ public class ProductService {
 
     public List<Product> getAllByOrderByIdAsc() {
 
+
+        List<Product> productList=productRepository.findAllByOrderByIdAsc();
+
+        for(Product product:productList){
+            product.setStr_manufacture(product.getManufacture());
+            product.setStr_expire(product.getExpire());
+        }
+
         return productRepository.findAllByOrderByIdAsc();
 
     }
@@ -89,7 +94,7 @@ public class ProductService {
         //Устанавливаем продукту активность
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-        product.setActive(true);
+        product.setActive(false);
         product.setDate_manufactured(LocalDate.parse(product.getStr_manufacture(),formatter));
         product.setDate_expire(LocalDate.parse(product.getStr_expire(),formatter));
 
@@ -112,19 +117,42 @@ public class ProductService {
 
 
     public Product getProductByID(Long id) {
-        return productRepository.findById(id).get();
+        Product product=productRepository.findById(id).get();
+        //Для работы с датами
+        product.setStr_manufacture(product.getManufacture());
+        product.setStr_expire(product.getExpire());
+
+        return product;
     }
 
     @Transactional
     public void updateProductToDB(Product product) {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-
-
+        
         product.setDate_manufactured(LocalDate.parse(product.getStr_manufacture(),formatter));
         product.setDate_expire(LocalDate.parse(product.getStr_expire(),formatter));
 
         product.setActive(true);
         productRepository.save(product);
+    }
+
+
+    public List<Product> getProductsByCategory(Long id) {
+
+        List<Product> tmpProductList=new ArrayList<>();
+        //Будем заполнять только теми у кого есть нужна категория
+        List<Product> fullProductlist=productRepository.findAllByOrderByIdAsc();
+
+        for(Product product:fullProductlist){
+            if(product.getCategory().getId().equals(id)&&product.isActive()){
+                tmpProductList.add(product);
+            }
+        }
+        return tmpProductList;
+    }
+    @Transactional
+    public void deleteProd(Long id) {
+        productRepository.delete(getProductByID(id));
     }
 }

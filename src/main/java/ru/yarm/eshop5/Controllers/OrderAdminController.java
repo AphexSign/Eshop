@@ -33,7 +33,6 @@ public class OrderAdminController {
         List<Order> orderList=orderService.getAllOrdersSortedById();
         model.addAttribute("orders", orderList);
 
-       // System.err.println(orderDetailService.findAllOrderDetailsByOrder(6L).size());
 
         return "order_admin";
     }
@@ -53,6 +52,13 @@ public class OrderAdminController {
         return "order_info";
     }
 
+
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('MANAGER')")
+    @GetMapping("/{id}/delete")
+    public String deleteOrder(@PathVariable Long id) {
+        orderService.deleteOrder(id);
+        return "redirect:/order_admin";
+    }
 
 
 

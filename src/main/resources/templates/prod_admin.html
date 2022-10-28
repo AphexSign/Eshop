@@ -19,7 +19,7 @@
     #form{
 
         margin-left:auto;
-        margin-right:500px;
+        margin-right:350px;
         width:15%;
         height: 100%;
 
@@ -52,6 +52,7 @@
 <body>
 <div th:insert="~{fragments/menu :: #nav-menu}"></div>
 <h2 align="center">Управление продуктовой номенклатурой:</h2>
+
 <div style="float:left;" id="mytable">
 <table border="0" align="center" id="table">
   <tr BGCOLOR="dodgerblue">
@@ -76,6 +77,7 @@
     <td><a title="Заблокировать товар" th:href="@{/prod_admin/{id}/deactive(id=${product.id})}"><img th:src="@{/images/ban5.png}" height="32px" width="32px"/></a></td>
     <td><a title="Разблокировать товар" th:href="@{/prod_admin/{id}/active(id=${product.id})}"><img th:src="@{/images/unban.png}" height="32px" width="32px"/></a></td>
     <td><a title="Редактировать товар" th:href="@{/prod_admin/{id}/edit(id=${product.id})}"><img th:src="@{/images/manager.png}" height="32px" width="32px"/></a></td>
+      <td><a title="Удалить товар" th:href="@{/prod_admin/{id}/delete(id=${product.id})}"><img th:src="@{/images/delete.png}" height="32px" width="32px"/></a></td>
   </tr>
 </table>
 </div>

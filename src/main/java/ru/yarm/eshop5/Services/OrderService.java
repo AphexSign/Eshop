@@ -3,11 +3,9 @@ package ru.yarm.eshop5.Services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.yarm.eshop5.Models.Order;
+import ru.yarm.eshop5.Models.OrderDetails;
 import ru.yarm.eshop5.Models.User;
-import ru.yarm.eshop5.Repositories.OrderCrudRepository;
-import ru.yarm.eshop5.Repositories.OrderRepository;
-import ru.yarm.eshop5.Repositories.Order_StatusRepository;
-import ru.yarm.eshop5.Repositories.UserRepository;
+import ru.yarm.eshop5.Repositories.*;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
@@ -22,14 +20,19 @@ public class OrderService {
     private final UserRepository userRepository;
     private final OrderCrudRepository orderCrudRepository;
     private final Order_StatusRepository order_statusRepository;
+    private final OrderDetailRepository orderDetailRepository;
+
+
 
 
     @Autowired
-    public OrderService(OrderRepository orderRepository, UserRepository userRepository, OrderCrudRepository orderCrudRepository, Order_StatusRepository order_statusRepository) {
+    public OrderService(OrderRepository orderRepository, UserRepository userRepository, OrderCrudRepository orderCrudRepository, Order_StatusRepository order_statusRepository, OrderDetailRepository orderDetailRepository) {
         this.orderRepository = orderRepository;
         this.userRepository = userRepository;
         this.orderCrudRepository = orderCrudRepository;
         this.order_statusRepository = order_statusRepository;
+        this.orderDetailRepository = orderDetailRepository;
+
     }
 
     //Выдача несортированного списка Заказов
@@ -100,4 +103,23 @@ public class OrderService {
     }
 
 
-}
+    @Transactional
+    public void deleteOrder(Long id){
+
+        List<OrderDetails> orderDetailsList=getOrderById(id).getDetails();
+        System.err.println(orderDetailsList.size());
+
+        for(OrderDetails orderDetails:orderDetailsList){
+            orderDetailRepository.deleteById(orderDetails.getId());
+        }
+
+        orderRepository.deleteById(id);
+        }
+
+    }
+
+
+
+
+
+

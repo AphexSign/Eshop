@@ -58,6 +58,7 @@
         <td align="center" th:text="${category.id}">1</td>
         <td align="center" th:text="${category.title}">200</td>
         <td><a title="Редактировать категорию" th:href="@{/category_admin/{id}/edit(id=${category.id})}"><img th:src="@{/images/manager.png}" height="32px" width="32px"/></a></td>
+        <td><a title="Удалить категорию" th:href="@{/category_admin/{id}/delete(id=${category.id})}"><img th:src="@{/images/delete.png}" height="32px" width="32px"/></a></td>
     </tr>
 </table>
     </div>
