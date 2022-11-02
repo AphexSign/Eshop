@@ -6,16 +6,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import ru.yarm.eshop5.Models.Role;
 import ru.yarm.eshop5.Models.User;
 import ru.yarm.eshop5.Repositories.UserRepository;
+import ru.yarm.eshop5.Services.UserService;
 
 import java.security.Principal;
 
 @Controller
 public class HelloController {
 
-  private final UserRepository userRepository;
+ // private final UserRepository userRepository;
+  private final UserService userService;
 
-    public HelloController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public HelloController(UserService userService) {
+      //  this.userRepository = userRepository;
+        this.userService = userService;
     }
 
     @GetMapping("/")
@@ -26,7 +29,10 @@ public class HelloController {
 
     @GetMapping("/hello")
     public String aboutUser(Model model, Principal principal){
-            User user=userRepository.findByName(principal.getName()).get();
+            //User user=userRepository.findByName(principal.getName()).get();
+        User user=userService.getUserByName(principal.getName());
+
+
             //Проверка на роль
             if(user.getRole()!=Role.BANNED){
                 model.addAttribute("user", user);

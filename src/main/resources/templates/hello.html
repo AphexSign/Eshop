@@ -16,15 +16,15 @@
 
 <div sec:authorize="isAuthenticated()">
     <h2 align="center">
-        Добро пожаловать в наш Интернет-Магазин!
+        Добро пожаловать в наш Интернет-Магазин!</h2>
         <br/>
         <br/>
-        Ваше Ф.И.О.: <span th:text="${user.getFio()}" /> <br/>
-        Ваш логин: <span th:text="${user.getName()}" /> <br/>
-        Ваш email: <span th:text="${user.getEmail()}" /><br/>
-        Ваш адрес: <span th:text="${user.getAddress()}" /><br/>
-        Ваш телефон: <span th:text="${user.getTelephone()}" /><br/>
-    </h2>
+       <p style="color:black; font-weight:bold; font-size:18px"> Ваше Ф.И.О.: <span th:text="${user.getFio()}" /> <p/>
+    <p style="color:black; font-weight:bold; font-size:18px">  Ваш логин: <span th:text="${user.getName()}" /> <p/>
+    <p style="color:black; font-weight:bold; font-size:18px">  Ваш email: <span th:text="${user.getEmail()}" /><p/>
+    <p style="color:black; font-weight:bold; font-size:18px">   Ваш адрес: <span th:text="${user.getAddress()}" /><p/>
+    <p style="color:black; font-weight:bold; font-size:18px">   Ваш телефон: <span th:text="${user.getTelephone()}" /><p/>
+
 </div>
 
 </body>

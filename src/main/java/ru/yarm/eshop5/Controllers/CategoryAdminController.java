@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.yarm.eshop5.Models.Category;
-import ru.yarm.eshop5.Models.Product;
 import ru.yarm.eshop5.Services.CategoryService;
 
 import javax.validation.Valid;

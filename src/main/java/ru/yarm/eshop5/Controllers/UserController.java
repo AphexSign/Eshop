@@ -1,14 +1,11 @@
 package ru.yarm.eshop5.Controllers;
 
-import org.springframework.data.domain.Sort;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import ru.yarm.eshop5.Models.Role;
 import ru.yarm.eshop5.Models.User;
-import ru.yarm.eshop5.Repositories.UserRepository;
 import ru.yarm.eshop5.Services.UserService;
 
 import java.util.List;

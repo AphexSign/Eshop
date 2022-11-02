@@ -2,13 +2,12 @@ package ru.yarm.eshop5.Controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.yarm.eshop5.DTO.CartDTO;
 import ru.yarm.eshop5.Models.Cart;
 import ru.yarm.eshop5.Services.CartService;
+import ru.yarm.eshop5.Services.ProductService;
 
-import javax.validation.Valid;
 import java.security.Principal;
 
 @Controller
@@ -16,9 +15,11 @@ import java.security.Principal;
 public class CartController {
 
     private final CartService cartService;
+    private final ProductService productService;
 
-    public CartController(CartService cartService) {
+    public CartController(CartService cartService, ProductService productService) {
         this.cartService = cartService;
+        this.productService = productService;
     }
 
 
@@ -35,7 +36,7 @@ public class CartController {
         return "cart";
     }
 
-    //Убирает из корзины товар
+    //Убирает все товары из корзины
     @GetMapping("/{id}/remove")
     public String removeFromCart(@PathVariable Long id, Principal principal) {
         if (principal == null) {
@@ -45,6 +46,41 @@ public class CartController {
         cartService.removeFromUserCart(id,principal.getName());
         return "redirect:/cart";
     }
+
+
+    @GetMapping("/{id}/add")
+    public String addToCart(@PathVariable Long id, Principal principal) {
+        if (principal == null) {
+            return "redirect:/cart";
+        }
+
+        productService.addToUserCart(id,principal.getName());
+       // cartService.removeFromUserCart(id,principal.getName());
+        //Добавить в корзину
+
+        return "redirect:/cart";
+    }
+
+
+    @GetMapping("/{id}/minus")
+    public String minusToCart(@PathVariable Long id, Principal principal) {
+        if (principal == null) {
+            return "redirect:/cart";
+        }
+
+      //  productService.addToUserCart(id,principal.getName());
+        // cartService.removeFromUserCart(id,principal.getName());
+        //Добавить в корзину
+        cartService.minusFromUserCart(id,principal.getName());
+
+        return "redirect:/cart";
+    }
+
+
+
+
+
+
 
     @PostMapping
     public String performOrder(@RequestParam(name = "payment") String payment, Principal principal){

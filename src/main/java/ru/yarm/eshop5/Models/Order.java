@@ -54,11 +54,6 @@ public class Order {
     }
 
 
-    //    @Enumerated(EnumType.STRING)
-//    private OrderStatus status;
-
-
-
 
     public String getCreatedTime(){
         LocalDateTime localDateTime=this.created;
@@ -71,13 +66,6 @@ public class Order {
         DateTimeFormatter formatter=DateTimeFormatter.ofPattern("dd.MM.YYYY HH:mm:ss");
         return localDateTime.format(formatter);
     }
-
-//    public String getPayMethod(){
-//        if (this.pay.equals("Bank")){
-//            return "Безналичная";
-//        }
-//        else {return "Наличная";}
-//    }
 
 
 

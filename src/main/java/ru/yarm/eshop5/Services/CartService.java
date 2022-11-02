@@ -69,6 +69,7 @@ public class CartService {
 
     }
 
+    //Используется лишь для показа, но не для передачи, собираются данные в более красивой форме
     public CartDTO getCartByUser(String userName){
         //Find current User
         User user=userRepository.findByName(userName).get();
@@ -110,6 +111,35 @@ public class CartService {
         List<Product> listProducts = tmpCart.getProducts();
         listProducts.removeIf(product -> product.getId().equals(productId));
     }
+
+
+    @Transactional
+    public void minusFromUserCart(Long productId,String userName){
+        //Получить Юзера
+        User user=userRepository.findByName(userName).get();
+        if(user == null){
+            throw new RuntimeException("User is not found");
+        }
+        //Получили корзину - c ней будем работать
+        Cart tmpCart=cartRepository.getReferenceById(user.getId());
+        //Получаем с этой корзины список всех товаров
+        List<Product> listProducts = tmpCart.getProducts();
+
+        Product fetchProduct=productRepository.getReferenceById(productId);
+
+        if(listProducts.contains(fetchProduct)){
+            listProducts.remove(fetchProduct);
+        }
+        else {
+           // System.err.println("Not contains");
+        }
+
+
+    }
+
+
+
+
 
     @Transactional
     public void commitCartToOrder(String userName, String payment){

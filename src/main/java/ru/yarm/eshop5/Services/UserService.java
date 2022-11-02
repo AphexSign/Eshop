@@ -17,6 +17,15 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+
+
+    public User getUserByName(String name){
+        return userRepository.findByName(name).get();
+    }
+
+
+
+
     @Transactional
     public void banUser(Long id) {
         User user=userRepository.getReferenceById(id);

@@ -65,7 +65,7 @@ public class ProductService {
     public void addToUserCart(Long productId, String name) {
         //Find the current User
         User user = userRepository.findByName(name).get();
-        System.err.println("Found user (inner method):" + user.getName());
+        //  System.err.println("Found user (inner method):" + user.getName());
         if (user == null) {
             throw new RuntimeException("User not found. " + name);
         }

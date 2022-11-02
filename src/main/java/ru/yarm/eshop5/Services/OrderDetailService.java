@@ -14,11 +14,8 @@ public class OrderDetailService {
 
     private final OrderService orderService;
 
-
-
     public OrderDetailService(OrderService orderService) {
         this.orderService = orderService;
-
     }
 
     public List<OrderDetails> findAllOrderDetailsByOrder(Long id){
@@ -38,9 +35,6 @@ public class OrderDetailService {
         }
     }
 
-    public void deleteSingleOrderDetail(Long id){
-//        orderDetailRepository.delete(orderDetailRepository.getById(id));
-    }
 
 
 }

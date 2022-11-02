@@ -23,8 +23,6 @@ public class OrderService {
     private final OrderDetailRepository orderDetailRepository;
 
 
-
-
     @Autowired
     public OrderService(OrderRepository orderRepository, UserRepository userRepository, OrderCrudRepository orderCrudRepository, Order_StatusRepository order_statusRepository, OrderDetailRepository orderDetailRepository) {
         this.orderRepository = orderRepository;
@@ -57,7 +55,6 @@ public class OrderService {
     public void cancelOrder(Long id, String name) {
         User user=userRepository.findByName(name).get();
         Order order=orderRepository.getReferenceById(id);
-//        order.setStatus(OrderStatus.CANCELLED);
         order.setOrder_status(order_statusRepository.getReferenceById(3L));
         order.setChanged(LocalDateTime.now());
         orderRepository.save(order);
@@ -107,7 +104,7 @@ public class OrderService {
     public void deleteOrder(Long id){
 
         List<OrderDetails> orderDetailsList=getOrderById(id).getDetails();
-        System.err.println(orderDetailsList.size());
+//        System.err.println(orderDetailsList.size());
 
         for(OrderDetails orderDetails:orderDetailsList){
             orderDetailRepository.deleteById(orderDetails.getId());
