@@ -24,8 +24,6 @@ public class UserService {
     }
 
 
-
-
     @Transactional
     public void banUser(Long id) {
         User user=userRepository.getReferenceById(id);

@@ -46,7 +46,17 @@ public class OrderService {
         User user=userRepository.findByName(name).get();
         Order order=orderRepository.getReferenceById(id);
 //        order.setStatus(OrderStatus.PAID);
-        order.setOrder_status(order_statusRepository.getReferenceById(4L));
+        //Когда мы оплачиваем, мы смотрим какая форма оплаты товара,
+        //В зависимости от этого у нас будут - зарезервирован для оплаты
+        if(order.getPay_method().getTitle().equals("Банковская оплата")){
+            //оплачен
+            order.setOrder_status(order_statusRepository.getReferenceById(4L));
+        }
+            else {
+            //резервирован
+            order.setOrder_status(order_statusRepository.getReferenceById(2L));
+        }
+
         order.setChanged(LocalDateTime.now());
         orderRepository.save(order);
     }

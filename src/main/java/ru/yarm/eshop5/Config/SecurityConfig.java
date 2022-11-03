@@ -70,9 +70,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorities("MANAGER");
 
 
-
-
-
     }
 
     @Bean
