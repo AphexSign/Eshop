@@ -55,8 +55,6 @@ public class CartController {
         }
 
         productService.addToUserCart(id,principal.getName());
-       // cartService.removeFromUserCart(id,principal.getName());
-        //Добавить в корзину
 
         return "redirect:/cart";
     }
@@ -68,15 +66,10 @@ public class CartController {
             return "redirect:/cart";
         }
 
-      //  productService.addToUserCart(id,principal.getName());
-        // cartService.removeFromUserCart(id,principal.getName());
-        //Добавить в корзину
         cartService.minusFromUserCart(id,principal.getName());
 
         return "redirect:/cart";
     }
-
-
 
 
 

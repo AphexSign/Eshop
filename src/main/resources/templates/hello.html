@@ -19,12 +19,18 @@
         Добро пожаловать в наш Интернет-Магазин!</h2>
         <br/>
         <br/>
-       <p style="color:black; font-weight:bold; font-size:18px"> Ваше Ф.И.О.: <span th:text="${user.getFio()}" /> <p/>
-    <p style="color:black; font-weight:bold; font-size:18px">  Ваш логин: <span th:text="${user.getName()}" /> <p/>
-    <p style="color:black; font-weight:bold; font-size:18px">  Ваш email: <span th:text="${user.getEmail()}" /><p/>
+    <p style="color:black; font-weight:bold; font-size:18px">  Ваш логин: <span th:text="${user.getName()}" /> <a title="Редактировать логин" th:href="@{user/{id}/editLogin(id=${user.id})}"><img th:src="@{/images/gear.png}" height="32px" width="32px"/></a> <p/>
+
+    <p style="color:black; font-weight:bold; font-size:18px">  Ваш пароль: <span th:text="${user.password}" /> <a title="Редактировать пароль" th:href="@{user/{id}/editPassword(id=${user.id})}"><img th:src="@{/images/gear.png}" height="32px" width="32px"/></a>     <p/>
+    <p style="color:black; font-weight:bold; font-size:18px">  Ваш email: <span th:text="${user.getEmail()}" /> <a title="Редактировать email" th:href="@{user/{id}/editEmail(id=${user.id})}"><img th:src="@{/images/gear.png}" height="32px" width="32px"/></a>   <p/>
+
+
+    <p style="color:black; font-weight:bold; font-size:18px"> Ваше Ф.И.О.: <span th:text="${user.getFio()}" /> <p/>
     <p style="color:black; font-weight:bold; font-size:18px">   Ваш адрес: <span th:text="${user.getAddress()}" /><p/>
     <p style="color:black; font-weight:bold; font-size:18px">   Ваш телефон: <span th:text="${user.getTelephone()}" /><p/>
 
+
+    <a title="Редактировать профиль" th:href="@{user/{id}/edit(id=${user.id})}"><img th:src="@{/images/manager.png}" height="32px" width="32px"/></a>
 </div>
 
 </body>

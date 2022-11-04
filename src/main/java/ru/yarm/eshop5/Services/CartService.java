@@ -36,8 +36,8 @@ public class CartService {
     }
 
     @Transactional
-    public Cart createCart(User user, List<Long> productId){
-        Cart cart=new Cart();
+    public Cart createCart(User user, List<Long> productId) {
+        Cart cart = new Cart();
         cart.setUser(user);
         List<Product> productList = getCollectRefProductsByIds(productId);
         cart.setProducts(productList);
@@ -46,36 +46,36 @@ public class CartService {
 
     private List<Product> getCollectRefProductsByIds(List<Long> productId) {
         //Сформируем коллекцию продуктов
-        List<Product> productList =new ArrayList<>();
-        for(Long l:productId){
+        List<Product> productList = new ArrayList<>();
+        for (Long l : productId) {
             productList.add(productRepository.getReferenceById(l));
         }
         return productList;
     }
-    @Transactional
-    public void addProducts(Cart cart, List<Long> productId){
-        List<Product> productsList=cart.getProducts();
-        List<Product> tmpProductList=null;
 
-                if(productsList==null){
-                    tmpProductList=new ArrayList<>();
-                }
-                else{
-                    tmpProductList=new ArrayList<>(productsList);
-                }
-                tmpProductList.addAll(getCollectRefProductsByIds(productId));
-                cart.setProducts(tmpProductList);
-                cartRepository.save(cart);
+    @Transactional
+    public void addProducts(Cart cart, List<Long> productId) {
+        List<Product> productsList = cart.getProducts();
+        List<Product> tmpProductList = null;
+
+        if (productsList == null) {
+            tmpProductList = new ArrayList<>();
+        } else {
+            tmpProductList = new ArrayList<>(productsList);
+        }
+        tmpProductList.addAll(getCollectRefProductsByIds(productId));
+        cart.setProducts(tmpProductList);
+        cartRepository.save(cart);
 
     }
 
     //Используется лишь для показа, но не для передачи, собираются данные в более красивой форме
-    public CartDTO getCartByUser(String userName){
+    public CartDTO getCartByUser(String userName) {
         //Find current User
-        User user=userRepository.findByName(userName).get();
+        User user = userRepository.findByName(userName).get();
 
         //User not found or UserCart is absent, make New TMPcart
-        if(user == null || user.getCart() == null){
+        if (user == null || user.getCart() == null) {
             return new CartDTO();
         }
 
@@ -85,10 +85,9 @@ public class CartService {
         List<Product> products = user.getCart().getProducts();
         for (Product product : products) {
             CartDetailDTO detail = mapByProductId.get(product.getId());
-            if(detail == null){
+            if (detail == null) {
                 mapByProductId.put(product.getId(), new CartDetailDTO(product));
-            }
-            else {
+            } else {
                 detail.setAmount(detail.getAmount() + 1.0);
                 detail.setSum(detail.getSum() + product.getPrice());
 
@@ -100,64 +99,60 @@ public class CartService {
     }
 
     @Transactional
-    public void removeFromUserCart(Long productId,String userName){
+    public void removeFromUserCart(Long productId, String userName) {
         //Получить Юзера
-        User user=userRepository.findByName(userName).get();
-        if(user == null){
+        User user = userRepository.findByName(userName).get();
+        if (user == null) {
             throw new RuntimeException("User is not found");
         }
         //Получили корзину
-        Cart tmpCart=cartRepository.getReferenceById(user.getId());
+        Cart tmpCart = cartRepository.getReferenceById(user.getId());
         List<Product> listProducts = tmpCart.getProducts();
         listProducts.removeIf(product -> product.getId().equals(productId));
     }
 
 
     @Transactional
-    public void minusFromUserCart(Long productId,String userName){
+    public void minusFromUserCart(Long productId, String userName) {
         //Получить Юзера
-        User user=userRepository.findByName(userName).get();
-        if(user == null){
+        User user = userRepository.findByName(userName).get();
+        if (user == null) {
             throw new RuntimeException("User is not found");
         }
         //Получили корзину - c ней будем работать
-        Cart tmpCart=cartRepository.getReferenceById(user.getId());
+        Cart tmpCart = cartRepository.getReferenceById(user.getId());
         //Получаем с этой корзины список всех товаров
         List<Product> listProducts = tmpCart.getProducts();
 
-        Product fetchProduct=productRepository.getReferenceById(productId);
+        Product fetchProduct = productRepository.getReferenceById(productId);
 
-        if(listProducts.contains(fetchProduct)){
+        if (listProducts.contains(fetchProduct)) {
             listProducts.remove(fetchProduct);
-        }
-        else {
-           // System.err.println("Not contains");
+        } else {
+            // System.err.println("Not contains");
         }
 
 
     }
 
 
-
-
-
     @Transactional
-    public void commitCartToOrder(String userName, String payment){
+    public void commitCartToOrder(String userName, String payment) {
 
         //Находим Юзера
-        User user=userRepository.findByName(userName).get();
-        if(user == null){
+        User user = userRepository.findByName(userName).get();
+        if (user == null) {
             throw new RuntimeException("User is not found");
         }
         Cart cart = user.getCart();
-        if(cart == null || cart.getProducts().isEmpty()){
+        if (cart == null || cart.getProducts().isEmpty()) {
             return;
         }
         //Создаем новый заказ
         Order order = new Order();
         //Даем ему новый статус
         //Новый заказ
-        Long pay_value=Long.parseLong(payment);
+        Long pay_value = Long.parseLong(payment);
 
         order.setOrder_status(order_statusRepository.getReferenceById(1L));
         order.setPay_method(pay_methodRepository.getReferenceById(pay_value));
@@ -188,9 +183,6 @@ public class CartService {
         cartRepository.save(cart);
 
     }
-
-
-
 
 
 }

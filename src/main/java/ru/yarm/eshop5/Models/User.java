@@ -61,6 +61,10 @@ public class User {
     @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE)
     private Cart cart;
 
+    @Transient
+//    @NotEmpty(message = "Пароль не должен быть пустым")
+//    @Size(min = 3, max = 100, message = "Пароль не может быть меньше 3-х символов")
+    private String new_password;
 
     public String getArchive(){
         if(this.archive){

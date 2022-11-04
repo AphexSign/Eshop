@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Страница изменения аккаунта</title>
+
+  <style type="text/css">
+    label{
+      width:100px;
+      display:inline-block;
+      margin:4px;
+    }
+    #form{
+      margin-left:auto;
+      margin-right:auto;
+      width:15%;
+      justify-content: center;
+      align-items: center;
+      border-radius: 10px;
+      background:dodgerblue;
+      color:white;
+      /*width: 350px;*/
+      padding:4px}
+    input{width: auto}
+    h2{
+      text-align:center}
+    #submit{
+      width: 150px;
+      padding: 6px;
+      margin-left: 100px;
+      margin-top: 10px;
+    }
+  </style>
+
+
+
+</head>
+<body>
+
+<div th:insert="~{fragments/menu :: #nav-menu}"></div>
+
+<!--Формой через метод ПОСТ - передаем в аут-рек - пустой обьект User-->
+<h2>Форма изменения email</h2>
+
+<div id="form">
+  <form th:method="PATCH" th:action="@{/user_edit_email}" th:object="${user}">
+
+    <!--    <label for="id">Введите Id.: </label>-->
+    <input type="hidden" th:field="${user.id}" id="id"/>
+
+<!--    <label for="name">Введите имя пользователя: </label>-->
+    <input type="hidden" th:field="${user.name}" id="name"/>
+    <div style="color:yellow; font-weight:bold" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Username Error</div>
+
+    <!--    <label for="fio">Введите Ф.И.О.: </label>-->
+    <input type="hidden" th:field="${user.fio}" id="fio"/>
+    <div style="color:yellow; font-weight:bold" th:if="${#fields.hasErrors('fio')}" th:errors="*{fio}">ФИО Error
+    </div>
+
+        <label for="email">Введите email: </label>
+    <input type="text" th:field="${user.email}" id="email"/>
+    <div style="color:yellow; font-weight:bold" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error
+    </div>
+
+
+    <!--    <label for="address">Введите адрес: </label>-->
+    <input type="hidden" th:field="${user.address}" id="address"/>
+    <div style="color:yellow; font-weight:bold" th:if="${#fields.hasErrors('address')}" th:errors="*{address}">Address Error
+    </div>
+
+
+    <!--    <label for="telephone">Введите телефон: </label>-->
+    <input type="hidden" th:field="${user.telephone}" id="telephone"/>
+    <div style="color:yellow; font-weight:bold" th:if="${#fields.hasErrors('telephone')}" th:errors="*{telephone}">Telephone Error
+    </div>
+
+
+    <!--      <label for="password">Введите пароль: </label>-->
+    <input type="hidden" th:field="${user.password}" id="password"/>
+    <div style="color:yellow; font-weight:bold" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</div>
+
+
+    <input type="submit" value="Сохранить" id="submit"/>
+  </form>
+</div>
+
+</body>
+</html>

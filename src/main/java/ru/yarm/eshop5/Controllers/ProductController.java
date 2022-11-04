@@ -35,7 +35,7 @@ public class ProductController {
 
         if(id_cat!=null){
           tmplist = productService.getProductsByCategory(id_cat);
-          model.addAttribute("variable",id_cat);
+         // model.addAttribute("category.id",id_cat);
         }
         else {
             tmplist = productService.getProductActive();
@@ -54,6 +54,7 @@ public class ProductController {
             return "redirect:/products";
         }
         productService.addToUserCart(id,principal.getName());
+
 
         return "redirect:/products";
     }

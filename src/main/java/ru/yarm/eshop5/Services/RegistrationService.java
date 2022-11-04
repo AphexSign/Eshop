@@ -25,4 +25,39 @@ public class RegistrationService {
         userRepository.save(user);
     }
 
+    @Transactional
+    public void updateUser(User user){
+
+        User userToUpdate=userRepository.getReferenceById(user.getId());
+       // user.setPassword(passwordEncoder.encode(user.getPassword()));
+        //user.setRole(Role.CLIENT);
+        userToUpdate.setFio(user.getFio());
+     //   userToUpdate.setEmail(user.getEmail());
+        userToUpdate.setAddress(user.getAddress());
+        userToUpdate.setTelephone(user.getTelephone());
+
+    }
+
+    @Transactional
+    public void updateUser_login(User user) {
+        User userToUpdate=userRepository.getReferenceById(user.getId());
+        userToUpdate.setName(user.getName());
+
+    }
+    @Transactional
+    public void updateUser_email(User user) {
+
+        User userToUpdate=userRepository.getReferenceById(user.getId());
+        userToUpdate.setEmail(user.getEmail());
+
+    }
+
+    @Transactional
+    public void updateUser_password(User user) {
+        User userToUpdate=userRepository.getReferenceById(user.getId());
+       // String new_password=user.getNew_password();
+        userToUpdate.setPassword(passwordEncoder.encode(user.getNew_password()));
+    }
+
+
 }
