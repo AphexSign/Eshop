@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>ru.yarm.eshop5.Models.Order</OriginalElement>
+  <nodes>
+    <node x="494.16666666666674" y="364.58333333333337">ru.yarm.eshop5.Controllers.OrderController</node>
+    <node x="227.18750000000006" y="517.0000000000002">ru.yarm.eshop5.Models.Pay_method</node>
+    <node x="-270.2083333333333" y="294.54166666666674">ru.yarm.eshop5.Repositories.OrderRepository</node>
+    <node x="-5.000000000000114" y="517.0000000000002">ru.yarm.eshop5.Models.Order</node>
+    <node x="-245.25" y="517.0000000000002">ru.yarm.eshop5.Models.Order_status</node>
+    <node x="56.04166666666663" y="164.70833333333334">ru.yarm.eshop5.Services.OrderDetailService</node>
+    <node x="-278.54166666666663" y="164.70833333333334">ru.yarm.eshop5.Repositories.OrderCrudRepository</node>
+    <node x="484.16666666666674" y="164.70833333333334">ru.yarm.eshop5.Controllers.OrderAdminController</node>
+    <node x="1.9374999999999432" y="612.4583333333333">ru.yarm.eshop5.Models.OrderDetails</node>
+    <node x="56.04166666666663" y="262.25000000000006">ru.yarm.eshop5.Services.OrderService</node>
+    <node x="-13.958333333333371" y="394.79166666666674">ru.yarm.eshop5.Repositories.Order_StatusRepository</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="ru.yarm.eshop5.Controllers.OrderController" target="ru.yarm.eshop5.Models.Order" relationship="CREATE">
+      <point x="0.0" y="14.5" />
+      <point x="593.1666666666667" y="493.75000000000006" />
+      <point x="68.93749999999994" y="493.75000000000006" />
+      <point x="0.0" y="-14.5" />
+    </edge>
+    <edge source="ru.yarm.eshop5.Models.Order" target="ru.yarm.eshop5.Models.Order_status" relationship="TO_ONE">
+      <point x="-73.93750000000006" y="0.0" />
+      <point x="66.0" y="0.0" />
+    </edge>
+    <edge source="ru.yarm.eshop5.Models.OrderDetails" target="ru.yarm.eshop5.Models.Order" relationship="TO_ONE">
+      <point x="15.0" y="-14.5" />
+      <point x="18.46875000000003" y="14.5" />
+    </edge>
+    <edge source="ru.yarm.eshop5.Models.Order" target="ru.yarm.eshop5.Models.OrderDetails" relationship="TO_MANY">
+      <point x="3.4687500000000284" y="14.5" />
+      <point x="0.0" y="-14.5" />
+    </edge>
+    <edge source="ru.yarm.eshop5.Controllers.OrderController" target="ru.yarm.eshop5.Services.OrderService" relationship="TO_ONE">
+      <point x="3.3333333328755543E-4" y="-14.500000000000057" />
+      <point x="593.167" y="239.0" />
+      <point x="143.542" y="239.0" />
+      <point x="3.3333333337282056E-4" y="-14.500333333333344" />
+    </edge>
+    <edge source="ru.yarm.eshop5.Controllers.OrderController" target="ru.yarm.eshop5.Services.OrderDetailService" relationship="TO_ONE">
+      <point x="-98.99966666666677" y="-5.6843418860808015E-14" />
+      <point x="337.0" y="379.0833333333333" />
+      <point x="337.0" y="179.208" />
+      <point x="87.49966666666685" y="-3.3333333334439885E-4" />
+    </edge>
+    <edge source="ru.yarm.eshop5.Controllers.OrderAdminController" target="ru.yarm.eshop5.Services.OrderDetailService" relationship="TO_ONE">
+      <point x="-109.00036700336689" y="-3.3333333334439885E-4" />
+      <point x="337.0" y="179.208" />
+      <point x="337.0" y="179.20833333333334" />
+      <point x="289.5000000000001" y="179.20833333333334" />
+      <point x="289.5000000000001" y="179.208" />
+      <point x="87.49966666666685" y="-3.3333333334439885E-4" />
+    </edge>
+    <edge source="ru.yarm.eshop5.Controllers.OrderAdminController" target="ru.yarm.eshop5.Services.OrderService" relationship="TO_ONE">
+      <point x="-3.6700336695296505E-4" y="14.499666666666656" />
+      <point x="593.1662996632998" y="215.54166666666674" />
+      <point x="593.1666666666667" y="215.54166666666674" />
+      <point x="593.1666666666667" y="239.0" />
+      <point x="143.542" y="239.0" />
+      <point x="3.3333333337282056E-4" y="-14.500333333333344" />
+    </edge>
+    <edge source="ru.yarm.eshop5.Models.Order" target="ru.yarm.eshop5.Models.Pay_method" relationship="TO_ONE">
+      <point x="73.93750000000006" y="0.0" />
+      <point x="-65.5" y="0.0" />
+    </edge>
+    <edge source="ru.yarm.eshop5.Services.OrderService" target="ru.yarm.eshop5.Repositories.OrderRepository" relationship="TO_ONE">
+      <point x="0.0" y="14.5" />
+      <point x="143.54166666666663" y="310.83333333333337" />
+      <point x="-167.70833333333331" y="310.83333333333337" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="ru.yarm.eshop5.Controllers.OrderController" target="ru.yarm.eshop5.Models.OrderDetails" relationship="CREATE">
+      <point x="15.0" y="14.5" />
+      <point x="608.1666666666667" y="626.9583333333333" />
+      <point x="70.46875000000003" y="0.0" />
+    </edge>
+    <edge source="ru.yarm.eshop5.Services.OrderDetailService" target="ru.yarm.eshop5.Services.OrderService" relationship="TO_ONE">
+      <point x="-3.333333331454469E-4" y="14.499666666666656" />
+      <point x="143.54133333333348" y="239.0" />
+      <point x="143.542" y="239.0" />
+      <point x="3.3333333337282056E-4" y="-14.500333333333344" />
+    </edge>
+    <edge source="ru.yarm.eshop5.Services.OrderService" target="ru.yarm.eshop5.Repositories.Order_StatusRepository" relationship="TO_ONE">
+      <point x="15.0" y="14.5" />
+      <point x="70.0" y="-14.5" />
+    </edge>
+    <edge source="ru.yarm.eshop5.Services.OrderService" target="ru.yarm.eshop5.Repositories.OrderCrudRepository" relationship="TO_ONE">
+      <point x="-87.5" y="0.0" />
+      <point x="8.541666666666629" y="276.75000000000006" />
+      <point x="8.541666666666629" y="179.20833333333334" />
+      <point x="102.5" y="0.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.96" showDependencies="true" x="235.33333333333348" y="334.2916666666667" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

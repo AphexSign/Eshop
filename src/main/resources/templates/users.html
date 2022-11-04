@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Пользователи сайта</title>
+</head>
+<body>
+<div th:insert="~{fragments/menu :: #nav-menu}"></div>
+<h2 align="center">Список пользователей:</h2>
+
+<table border="0" align="center" id="table">
+    <tr BGCOLOR="#DEB887">
+        <td align="center" style="font-weight:bold; font-size:20px">ID</td>
+        <td align="center" style="font-weight:bold; font-size:20px">ФИО</td>
+        <td align="center" style="font-weight:bold; font-size:20px">Login</td>
+        <td align="center" style="font-weight:bold; font-size:20px">Bcrypted password</td>
+        <td align="center" style="font-weight:bold; font-size:20px">Аккаунт заблокирован</td>
+        <td align="center" style="font-weight:bold; font-size:20px">Роль</td>
+<!--        <td></td>-->
+    </tr>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.id}">Cheese</td>
+        <td align="center" th:text="${user.fio}">12.0</td>
+        <td align="center" th:text="${user.name}">12.0</td>
+        <td align="center" th:text="${user.password}">12.0</td>
+        <td align="center" th:text="${user.getArchive()}">12.0</td>
+        <td align="center" th:text="${user.getRole.getTitle()}">12.0</td>
+
+        <td th:if="${user.getRole.name()=='ADMIN'}">
+
+        </td>
+        <td title="Заблокировать пользователя" th:if="${user.getRole.name()!='ADMIN'}">
+            <a th:href="@{/users/{id}/ban(id=${user.id})}"><img th:src="@{/images/banuser.png}" height="32px" width="32px"/></a>
+        </td>
+
+        <td th:if="${user.getRole.name()=='ADMIN'}">
+
+        </td>
+        <td title="Разблокировать пользователя" th:if="${user.getRole.name()!='ADMIN'}">
+            <a th:href="@{/users/{id}/unban(id=${user.id})}"><img th:src="@{/images/unbanuser.png}" height="32px" width="32px"/></a>
+        </td>
+
+        <td th:if="${user.getRole.name()=='BANNED' || user.getRole.name()=='ADMIN'}">
+
+        </td>
+        <td title="Назначить менеджером" th:if="${user.getRole.name()!='BANNED' && user.getRole.name()!='ADMIN'}">
+            <a th:href="@{/users/{id}/mk_manager(id=${user.id})}"><img th:src="@{/images/manager.png}" height="32px" width="32px"/></a>
+        </td>
+
+        <td title="Удалить пользователя" th:if="${user.getRole.name()!='ADMIN'}">
+            <a th:href="@{/users/{id}/delete(id=${user.id})}"><img th:src="@{/images/delete.png}" height="32px" width="32px"/></a>
+        </td>
+
+    </tr>
+</table>
+
+
+
+
+
+</body>
+</html>

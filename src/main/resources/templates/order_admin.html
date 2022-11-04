@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Управление всеми заказами</title>
+</head>
+<body>
+<div th:insert="~{fragments/menu :: #nav-menu}"></div>
+<h2 align="center">Управление всеми заказами</h2>
+
+<table border="0" align="center">
+  <tr BGCOLOR="#DEB887">
+    <td align="center" style="font-weight:bold; font-size:20px">Номер заказа</td>
+    <td align="center" style="font-weight:bold; font-size:20px">Сумма заказа</td>
+    <td align="center" style="font-weight:bold; font-size:20px">Форма оплаты</td>
+    <td align="center" style="font-weight:bold; font-size:20px">Адрес доставки</td>
+    <td align="center" style="font-weight:bold; font-size:20px">Ф.И.О. заказчика</td>
+    <td align="center" style="font-weight:bold; font-size:20px">Статус заказа</td>
+  </tr>
+  <tr th:each="order : ${orders}">
+    <td align="center" th:text="${order.id}">1</td>
+    <td align="center" th:text="${order.sum}">200</td>
+    <td align="center" th:text="${order.getPay_method().getTitle()}">Money</td>
+    <td th:text="${order.address}">Address</td>
+    <td align="center" th:text="${order.user.fio}">FIO</td>
+
+
+
+    <td th:if="${order.getOrder_status().getTitle()=='Новый'}">
+      <span style="color: orange;"><img th:src="@{/images/order_notpay.png}" height="32px" width="128px"/></span>
+    </td>
+    <td th:if="${order.getOrder_status().getTitle()=='Оплачен'}">
+      <span style="color: orange;"><img th:src="@{/images/order_paid.png}" height="32px" width="128px"/></span>
+      <a title="Подтвердить доставку" th:href="@{/order_admin/{id}/deliver(id=${order.id})}"><img th:src="@{/images/deliver.png}" height="32px" width="32px"/></a>
+    </td>
+
+    <td th:if="${order.getOrder_status().getTitle()=='Зарезервирован'}">
+      <span style="color: orange;"><img th:src="@{/images/order_reserve.png}" height="32px" width="128px"/></span>
+      <a title="Подтвердить доставку" th:href="@{/order_admin/{id}/deliver(id=${order.id})}"><img th:src="@{/images/deliver.png}" height="32px" width="32px"/></a>
+    </td>
+
+
+    <td th:if="${order.getOrder_status().getTitle()=='Завершен'}">
+      <span style="color: green;"><img th:src="@{/images/order_deliver.png}" height="32px" width="128px"/></span>
+    </td>
+
+    <td th:if="${order.getOrder_status().getTitle()=='Отменен'}">
+      <span style="color: red;"><img th:src="@{/images/order_cancel.png}" height="32px" width="128px"/></span>
+    </td>
+    <td><a title="Подробности заказа" th:href="@{/order_admin/{id}/details(id=${order.id})}"><img th:src="@{/images/lupa.png}" height="32px" width="32px"/></a></td>
+
+    <td th:if="${order.getOrder_status().getTitle()=='Отменен' or order.getOrder_status().getTitle()=='Новый'}">
+    <a title="Удаление заказа" th:href="@{/order_admin/{id}/delete(id=${order.id})}"><img th:src="@{/images/delete.png}" height="32px" width="32px"/></a>
+    </td>
+
+
+  </tr>
+</table>
+
+
+
+</body>
+</html>

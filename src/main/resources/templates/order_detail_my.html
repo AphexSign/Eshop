@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Данные о заказе</title>
+
+
+    <style type="text/css">
+        label{
+            width:100px;
+            display:inline-block;
+            margin:4px;
+        }
+        #form{
+            margin-left:auto;
+            margin-right:auto;
+            width:15%;
+
+
+            border-radius: 10px;
+            background:dodgerblue;
+            color:white;
+            /*width: 350px;*/
+            padding:4px}
+        input{width: auto}
+        h2{
+            text-align:center}
+        #submit{
+            width: 130px;
+            padding: 3px;
+            margin-left: 100px;
+            margin-bottom: 12px;
+
+        }
+
+    </style>
+
+
+</head>
+<body>
+<div th:insert="~{fragments/menu :: #nav-menu}"></div>
+<h2 align="center">Детали заказа:</h2>
+
+<table border="0" align="center" id="table">
+    <tr BGCOLOR="#DEB887">
+        <td align="center" style="font-weight:bold; font-size:20px">Товар</td>
+        <td align="center" style="font-weight:bold; font-size:20px">Количество, ед.</td>
+        <td align="center" style="font-weight:bold; font-size:20px">Вес за ед.,кг.</td>
+        <td align="center" style="font-weight:bold; font-size:20px">Общий вес, кг.</td>
+        <td align="center" style="font-weight:bold; font-size:20px">Цена за ед, руб.</td>
+        <td align="center" style="font-weight:bold; font-size:20px">Сумма, руб.</td>
+    </tr>
+
+    <tr>
+    <tr th:each="orderDetail : ${orderDetails}">
+        <td align="center" th:text="${orderDetail.getProduct().getTitle()}">1</td>
+        <td align="center" th:text="${orderDetail.amount}">200</td>
+        <td align="center" th:text="${orderDetail.getProduct().getWeight()}">1</td>
+        <td align="center" th:text="${#numbers.formatDecimal(orderDetail.getProduct().getWeight()*orderDetail.amount, 0, 2)}">1</td>
+        <td align="center" th:text="${orderDetail.price}">Money</td>
+        <td align="center" th:text="${#numbers.formatDecimal(orderDetail.price*orderDetail.amount, 0, 2)}">Money</td>
+    </tr>
+</table>
+
+
+
+</body>
+</html>
