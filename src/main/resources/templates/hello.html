@@ -3,6 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+
+    <style type="text/css">
+        label{
+            width:100px;
+            display:inline-block;
+            margin:4px;
+        }
+
+        #mytable{
+            margin-left:700px;
+        }
+
+        #form{
+
+            margin-left:auto;
+            margin-right:300px;
+            width:60%;
+
+
+            border-radius: 10px;
+            background:white;
+            color:black;
+            /*width: 350px;*/
+            padding:4px}
+        input{        width: auto;
+
+        }
+        h2{
+            text-align:center}
+        #submit{
+            width: 160px;
+            padding: 3px;
+            margin-left: 100px;
+            margin-bottom: 12px;
+
+        }
+
+    </style>
+
+
+
 </head>
 <body>
 <div th:insert="~{fragments/menu :: #nav-menu}"></div>
@@ -14,24 +56,45 @@
     </h2>
 </div>
 
+
 <div sec:authorize="isAuthenticated()">
     <h2 align="center">
         Добро пожаловать в наш Интернет-Магазин!</h2>
         <br/>
         <br/>
-    <p style="color:black; font-weight:bold; font-size:18px">  Ваш логин: <span th:text="${user.getName()}" /> <a title="Редактировать логин" th:href="@{user/{id}/editLogin(id=${user.id})}"><img th:src="@{/images/gear.png}" height="32px" width="32px"/></a> <p/>
 
-    <p style="color:black; font-weight:bold; font-size:18px">  Ваш пароль: <span th:text="${user.password}" /> <a title="Редактировать пароль" th:href="@{user/{id}/editPassword(id=${user.id})}"><img th:src="@{/images/gear.png}" height="32px" width="32px"/></a>     <p/>
-    <p style="color:black; font-weight:bold; font-size:18px">  Ваш email: <span th:text="${user.getEmail()}" /> <a title="Редактировать email" th:href="@{user/{id}/editEmail(id=${user.id})}"><img th:src="@{/images/gear.png}" height="32px" width="32px"/></a>   <p/>
-
-
-    <p style="color:black; font-weight:bold; font-size:18px"> Ваше Ф.И.О.: <span th:text="${user.getFio()}" /> <p/>
+    <div id="form2" style="float:left;">
+    <p style="color:black; font-weight:bold; font-size:18px">  Ваш логин: <span th:text="${user.getName()}" /> <a title="Редактировать логин" th:href="@{user/{id}/editLogin(id=${user.id})}"><img th:src="@{/images/gear.png}" height="24px" width="24px"/></a> <p/>
+    <p style="color:black; font-weight:bold; font-size:18px">  Ваш пароль: <span th:text="${user.showPassword()}" /> <a title="Редактировать пароль" th:href="@{user/{id}/editPassword(id=${user.id})}"><img th:src="@{/images/gear.png}" height="24px" width="24px"/></a>     <p/>
+    <p style="color:black; font-weight:bold; font-size:18px">  Ваш email: <span th:text="${user.getEmail()}" /> <a title="Редактировать email" th:href="@{user/{id}/editEmail(id=${user.id})}"><img th:src="@{/images/gear.png}" height="24px" width="24px"/></a>   <p/>
+    <p style="color:black; font-weight:bold; font-size:18px"> Ваше Ф.И.О.: <span th:text="${user.getFio()}" /> <a title="Редактировать профиль" th:href="@{user/{id}/edit(id=${user.id})}"><img th:src="@{/images/manager.png}" height="24px" width="24px"/></a><p/>
     <p style="color:black; font-weight:bold; font-size:18px">   Ваш адрес: <span th:text="${user.getAddress()}" /><p/>
-    <p style="color:black; font-weight:bold; font-size:18px">   Ваш телефон: <span th:text="${user.getTelephone()}" /><p/>
-
-
-    <a title="Редактировать профиль" th:href="@{user/{id}/edit(id=${user.id})}"><img th:src="@{/images/manager.png}" height="32px" width="32px"/></a>
+        <p style="color:black; font-weight:bold; font-size:18px">   Ваш телефон: <span th:text="${user.getTelephone()}" /><p/>
+    </div>
 </div>
+
+
+<div id="form" style="float:right;">
+<ul>
+    <th:block th:each="news : ${newslist}">
+        <table>
+            <tr BGCOLOR="#6ec5de">
+                <td align="center" style="font-weight:bold; font-size:20px" th:text="${news.title}"></td>
+            </tr>
+            <tr BGCOLOR="#b4dade">
+                <td align="justify" th:text="${news.message}"></td>
+            </tr>
+            <tr BGCOLOR="#6ec5de">
+                <td align="right" th:text="${news.getAuthor() + news.getCreatedTime()}"></td>
+            </tr>
+        </table>
+        <br> </br>
+    </th:block>
+</ul>
+</div>
+
+
+
 
 </body>
 </html>

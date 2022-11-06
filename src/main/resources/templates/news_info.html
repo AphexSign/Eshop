@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Данные о новости</title>
+
+
+    <style type="text/css">
+        label{
+            width:100px;
+            display:inline-block;
+            margin:4px;
+        }
+        #form{
+            margin-left:auto;
+            margin-right:900px;
+
+            width:23%;
+
+            border-radius: 10px;
+            background:dodgerblue;
+            color:white;
+
+            padding:4px}
+        input{ width: 330px;}
+        h2{
+            text-align:center}
+        #submit{
+            width: 200px;
+            padding: 3px;
+            margin-left: 150px;
+            margin-bottom: 12px;
+
+        }
+
+        textarea {
+            width: 450px;
+            height: 150px;
+        }
+
+    </style>
+
+
+</head>
+<body>
+<div th:insert="~{fragments/menu :: #nav-menu}"></div>
+
+<div id="form">
+    <h2>Изменение данных о новости</h2>
+    <form th:method="POST" th:action="@{/news_info}" th:object="${news}">
+
+        <p>
+            <!--            <label for="id">Id категории: </label>-->
+            <input type="hidden" th:value="${news.id}" name="id" id="id" readonly/>
+        </p>
+
+        <p>
+            <label for="title">Введите заголовок новости: </label>
+            <input type="text" th:field="${news.title}" id="title" placeholder="---Заголовок---"/>
+        <div style="color:yellow; font-weight:bold" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Title Error</div>
+        </p>
+
+        <textarea class="form-control" id="message" rows="10"
+                  name="message"
+                  placeholder="---Предложите новость---" th:field="${news.message}"
+                  required="required"></textarea>
+
+        <br></br>
+
+        <input type="submit" value="Изменить данные" id="submit"/>
+
+    </form>
+
+</div>
+
+</body>
+</html>

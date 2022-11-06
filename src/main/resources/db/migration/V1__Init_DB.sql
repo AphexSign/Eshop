@@ -141,3 +141,38 @@ alter table if exists orders_details
         foreign key (product_id) references products;
 
 
+-- Images
+create sequence images_seq start 1 increment 1;
+
+create table images(
+                       id int8 not null,
+                       name varchar(255),
+                       originalFileName varchar(255),
+                       size int8,
+                       contentType varchar(255),
+                       content bytea,
+                       primary key (id)
+);
+
+
+-- News
+create sequence news_seq start 1 increment 1;
+create table news (
+                      id int8 not null,
+                      title varchar(255),
+                      message text,
+                      created timestamp,
+                      changed timestamp,
+                      active boolean not null,
+                      user_id int8,
+                      image_id int8,
+                      primary key (id)
+);
+
+alter table if exists news
+    add constraint news_fk_users
+        foreign key (user_id) references users;
+
+alter table if exists news
+    add constraint news_fk_image
+        foreign key (image_id) references images;

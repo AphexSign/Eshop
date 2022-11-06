@@ -4,14 +4,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import ru.yarm.eshop5.Models.News;
 import ru.yarm.eshop5.Models.Role;
 import ru.yarm.eshop5.Models.User;
+import ru.yarm.eshop5.Services.NewsService;
 import ru.yarm.eshop5.Services.RegistrationService;
 import ru.yarm.eshop5.Services.UserService;
 import ru.yarm.eshop5.Services.UserValidator;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 public class HelloController {
@@ -20,15 +23,20 @@ public class HelloController {
   private final UserService userService;
   private final UserValidator userValidator;
   private final RegistrationService registrationService;
+  private final NewsService newsService;
 
-    public HelloController(UserService userService, UserValidator userValidator, RegistrationService registrationService) {
+    public HelloController(UserService userService, UserValidator userValidator, RegistrationService registrationService, NewsService newsService) {
         this.userService = userService;
         this.userValidator = userValidator;
         this.registrationService = registrationService;
+        this.newsService = newsService;
     }
 
     @GetMapping("/")
-    public String hello2(){
+    public String hello2(Model model){
+        List<News> newsList=newsService.getAllNewsSortByDescAndActive();
+        model.addAttribute("newslist",newsList);
+
         return "hello";
     }
 
@@ -36,10 +44,23 @@ public class HelloController {
     @GetMapping("/hello")
     public String aboutUser(Model model, Principal principal){
             //User user=userRepository.findByName(principal.getName()).get();
-        User user=userService.getUserByName(principal.getName());
+
+        if(principal!=null) {
+            User user = userService.getUserByName(principal.getName());
+        }
+        else {
+            List<News> newsList=newsService.getAllNewsSortByDescAndActive();
+            model.addAttribute("newslist",newsList);
+            return "hello";
+
+        }
+        List<News> newsList=newsService.getAllNewsSortByDescAndActive();
+        User user = userService.getUserByName(principal.getName());
+
             //Проверка на роль
             if(user.getRole()!=Role.BANNED){
                 model.addAttribute("user", user);
+                model.addAttribute("newslist",newsList);
                 return "hello";
             } else {
                 model.addAttribute("user", user);
@@ -59,7 +80,6 @@ public class HelloController {
 
     @PatchMapping ("/user_edit")
     public String UpdateUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult){
-        //userValidator.validate(user,bindingResult);
 
         if(bindingResult.hasErrors()) {
             for(int i =0;i<bindingResult.getAllErrors().size();i++){
@@ -68,7 +88,6 @@ public class HelloController {
             return "user_edit";};
 
         registrationService.updateUser(user);
-       // return "redirect:/logout";
         return "redirect:/hello";
     }
 

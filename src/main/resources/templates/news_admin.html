@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+
+    <style type="text/css">
+        label{
+            width:100px;
+            display:inline-block;
+            margin:4px;
+        }
+
+
+        #form{
+
+            margin-left:auto;
+            margin-right:900px;
+
+            width:23%;
+
+
+            border-radius: 10px;
+            background:dodgerblue;
+            color:white;
+            /*width: 350px;*/
+            padding:4px}
+        input{        width: 330px;
+
+        }
+        h2{
+            text-align:center}
+        #submit{
+            width: 200px;
+            padding: 3px;
+            margin-left: 150px;
+            margin-bottom: 12px;
+
+        }
+        textarea {
+            width: 450px;
+            height: 150px;
+        }
+
+    </style>
+
+</head>
+<body>
+<div th:insert="~{fragments/menu :: #nav-menu}"></div>
+
+
+  <h2 align="center"> Новостной раздел</h2>
+
+
+
+<table border="0" align="center">
+    <tr BGCOLOR="#DEB887">
+        <td align="center" style="font-weight:bold; font-size:20px">Номер статьи</td>
+        <td align="center" style="font-weight:bold; font-size:20px">Заголовок</td>
+        <td align="center" style="font-weight:bold; font-size:20px">Автор</td>
+        <td align="center" style="font-weight:bold; font-size:20px">Дата создания</td>
+        <td align="center" style="font-weight:bold; font-size:20px">Дата обновления</td>
+        <td align="center" style="font-weight:bold; font-size:20px">Статус статьи</td>
+    </tr>
+    <tr th:each="news : ${newslist}">
+        <td align="center" th:text="${news.id}">1</td>
+        <td align="center" th:text="${news.title}">200</td>
+        <td align="center" th:text="${news.getAuthorAdmin()}">Money</td>
+        <td align="center" th:text="${news.getCreatedTimeAdmin()}">Address</td>
+        <td align="center" th:text="${news.getChangedTimeAdmin()}">FIO</td>
+        <td align="center" th:text="${news.isActive}">FIO</td>
+
+        <td><a title="Заблокировать новость" th:href="@{/news_admin/{id}/deactive(id=${news.id})}"><img th:src="@{/images/ban5.png}" height="32px" width="32px"/></a></td>
+        <td><a title="Разблокировать новость" th:href="@{/news_admin/{id}/active(id=${news.id})}"><img th:src="@{/images/unban.png}" height="32px" width="32px"/></a></td>
+        <td><a title="Редактировать новость" th:href="@{/news_admin/{id}/edit(id=${news.id})}"><img th:src="@{/images/manager.png}" height="32px" width="32px"/></a></td>
+        <td><a title="Удалить новость" th:href="@{/news_admin/{id}/delete(id=${news.id})}"><img th:src="@{/images/delete.png}" height="32px" width="32px"/></a></td>
+
+
+    </tr>
+</table>>
+<br>
+
+<div id="form" style="float:right;">
+    <form th:method="POST" th:action="@{/news_admin}" th:object="${news}">
+        <p>
+            <label for="title">Введите заголовок новости: </label>
+            <input type="text" th:field="${news.title}" id="title" placeholder="---Заголовок---"/>
+        <div style="color:yellow; font-weight:bold" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Title Error</div>
+        </p>
+
+
+        <textarea class="form-control" id="message" rows="10"
+                  name="message"
+                  placeholder="---Предложите новость---" th:field="${news.message}"
+                  required="required"></textarea>
+
+        <br></br>
+        <input type="submit" value="Добавить новость" id="submit"/>
+    </form>
+
+</div>
+
+</body>
+</html>

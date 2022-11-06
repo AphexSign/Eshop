@@ -62,8 +62,6 @@ public class User {
     private Cart cart;
 
     @Transient
-//    @NotEmpty(message = "Пароль не должен быть пустым")
-//    @Size(min = 3, max = 100, message = "Пароль не может быть меньше 3-х символов")
     private String new_password;
 
     public String getArchive(){
@@ -72,5 +70,12 @@ public class User {
         }
         else {return "Нет";}
     }
+
+    public String showPassword(){
+        return "*******";
+    }
+
+
+
 
 }

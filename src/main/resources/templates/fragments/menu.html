@@ -20,7 +20,7 @@
                     <td sec:authorize="hasAuthority('ADMIN') or hasAuthority('MANAGER')"><a th:href="@{/category_admin}"> <img th:src="@{/images/admin_category.png}" height="49px" width="151px"/></a></td>
                     <td sec:authorize="hasAuthority('ADMIN') or hasAuthority('MANAGER')"><a th:href="@{/prod_admin}"> <img th:src="@{/images/admin_product.png}" height="49px" width="151px"/></a></td>
                     <td sec:authorize="hasAuthority('ADMIN') or hasAuthority('MANAGER')"><a th:href="@{/order_admin}"><img th:src="@{/images/admin_order.png}" height="49px" width="151px"/> </a></td>
-
+                    <td sec:authorize="hasAuthority('ADMIN') or hasAuthority('MANAGER')"><a th:href="@{/news_admin}"><img th:src="@{/images/admin_news.png}" height="49px" width="151px"/> </a></td>
                 </tr>
             </table>
 
